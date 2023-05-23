@@ -1,0 +1,33 @@
+[
+  {
+    "type": "Product",
+    "data": [
+      {
+        "type": "Stock",
+        "value": 50000
+      },
+      {
+        "type": "Etfs",
+        "value": 1000
+      },
+      {
+        "type": "Cash",
+        "value": 100
+      }
+    ]
+  },
+  {
+    "type": "Sector",
+    "data": [
+      { "type": "Technology", "value": 320000 },
+      { "type": "Consumer non-cyclicals", "value": 431.8 },
+      { "type": "Consumer cyclicals", "value": 148.58 },
+      { "type": "Business services", "value": 84.42 },
+      { "type": "Others", "value": 930.35 }
+    ]
+  },
+  {
+    "type": "Currency Exposure",
+    "data": [{ "type": "USD", "value": 420000 }]
+  }
+]

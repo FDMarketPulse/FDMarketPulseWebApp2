@@ -1,0 +1,41 @@
+[
+  {
+    "type": "EQ",
+    "key": 1,
+    "instrument":"Adobe Inc",
+    "quantity": 10,
+    "currency": "USD",
+    "open": 476.83,
+    "currentPrice": 371.25,
+    "changePct": -22.14,
+    "marketValue": 1856,
+    "tradePL": -528,
+    "portfolioPct": 5.48
+  },
+  {
+    "type": "EQ",
+    "key": 2,
+    "instrument":"Microsoft Corp.",
+    "quantity": 20,
+    "currency":"USD",
+    "open": 195.55,
+    "currentPrice": 318.34,
+    "changePct": -62.79,
+    "marketValue": 15599,
+    "tradePL": 6017,
+    "portfolioPct": 46.06
+  },
+  {
+    "type": "ETF",
+    "key": 3,
+    "instrument":"ARK Innovation ETF",
+    "quantity": 23,
+    "currency":"USD",
+    "open": 151.99,
+    "currentPrice": 39.93,
+    "changePct": -73.72,
+    "marketValue": 919,
+    "tradePL": -2586,
+    "portfolioPct": 46.06
+  }
+]
