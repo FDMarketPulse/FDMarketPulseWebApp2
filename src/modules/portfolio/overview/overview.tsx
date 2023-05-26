@@ -9,35 +9,40 @@ import ChartsDummyData from "@/modules/portfolio/overview/chartsDummyData";
 const formatter = (value: number) => <CountUp end={value} separator="," />;
 const Overview = () => {
   return (
-    <Space direction={"vertical"}>
-      <Card>
-        <Row align={"middle"}>
-          {AccountData.map((d) => (
-            <>
-              <Col span={12}>{d.name}</Col>
-              <Col span={12}>
-                <Statistic value={d.value} formatter={formatter} />
-              </Col>
-              <Divider />
-            </>
-          ))}
-        </Row>
-      </Card>
-      <Card>
-        <OverviewTable />
-      </Card>
-      <Card>
-        <Tabs
-          items={ChartsDummyData.map((d, i) => {
-            return {
-              label: d["type"],
-              key: d["type"],
-              children: <DonutPie data={d["data"]} />,
-            };
-          })}
-        />
-      </Card>
-    </Space>
+    <Row>
+      <Col span={24}>
+        <Space direction={"vertical"}>
+          <Card>
+            <Row align={"middle"}>
+              {AccountData.map((d) => (
+                <>
+                  <Col span={12}>{d.name}</Col>
+                  <Col span={12}>
+                    <Statistic value={d.value} formatter={formatter} />
+                  </Col>
+                  <Divider />
+                </>
+              ))}
+            </Row>
+          </Card>
+          <Card>
+            <OverviewTable />
+          </Card>
+          <Card>
+            <Tabs
+              items={ChartsDummyData.map((d, i) => {
+                return {
+                  label: d["type"],
+                  key: d["type"],
+                  children: <DonutPie data={d["data"]} />,
+                };
+              })}
+            />
+          </Card>
+        </Space>
+      </Col>
+    </Row>
+
   );
 };
 
