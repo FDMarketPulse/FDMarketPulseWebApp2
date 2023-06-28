@@ -10,6 +10,9 @@ const Home = () => {
     { background: "#f0f0f0", fill: "#202020" },
     []
   );
+
+  // const data2 = useRootSelector(DashSel.sectorReturn)
+
   return (
     <Row align={"middle"} justify={"center"}>
       <Col span={8}>

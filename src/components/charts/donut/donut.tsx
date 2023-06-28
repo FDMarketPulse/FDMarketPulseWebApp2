@@ -6,15 +6,11 @@ interface valueData {
   value: number;
 }
 
-interface typeList {
-  data: valueData[];
-}
-
 const DonutPie: React.FC<valueData[]> = (props) => {
   const inputData = props["data"];
   const config = {
     appendPadding: 10,
-    data:inputData,
+    data: inputData,
     theme: "dark",
     angleField: "value",
     colorField: "type",
