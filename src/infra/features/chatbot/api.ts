@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from "axios";
 
 
 const api = axios.create({
-    baseURL:"http://137.184.4.164:8081"
+    baseURL:"https://137.184.4.164:8081"
 });
 
 export const fetchChat = (payload: any): Promise<AxiosResponse<any>> => {
