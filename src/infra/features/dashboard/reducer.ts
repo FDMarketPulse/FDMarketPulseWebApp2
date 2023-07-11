@@ -1,10 +1,10 @@
 import AllActions from "@/infra/rootAction";
 
 import produce from "immer";
-import { getType } from "typesafe-actions";
+import {getType} from "typesafe-actions";
 
 import * as A from "./actions";
-import { defaultState } from "./defaults";
+import {defaultState} from "./defaults";
 
 export default (state = defaultState, action: AllActions) =>
   produce(state, (draft) => {
@@ -51,6 +51,18 @@ export default (state = defaultState, action: AllActions) =>
       case getType(A.fetchMarketNewsContent.success):
         draft.status.newsContent = "SUCCESS";
         draft.newsContent = action.payload;
+        break;
+
+
+      case getType(A.fetchMarketMacroOhlc.request):
+        draft.status.macroData = "REQUEST";
+        break;
+      case getType(A.fetchMarketMacroOhlc.failure):
+        draft.status.macroData= "FAILURE";
+        break;
+      case getType(A.fetchMarketMacroOhlc.success):
+        draft.status.macroData = "SUCCESS";
+        draft.macroData = action.payload;
         break;
 
     }

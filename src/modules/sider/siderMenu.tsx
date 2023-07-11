@@ -1,53 +1,69 @@
+import React, {useState} from "react";
+import {Col, Menu, MenuProps, Row} from "antd";
+import {Link, useLocation} from "react-router-dom";
 import {
-  FundFilled,
-  HomeFilled,
-  ReadFilled,
-  UserOutlined,
-  WalletFilled,
+    FundFilled,
+    FundOutlined,
+    HomeFilled,
+    HomeOutlined,
+    ReadFilled,
+    ReadOutlined,
+    SlidersFilled,
+    SlidersOutlined,
+    UserOutlined,
+    WalletFilled,
+    WalletOutlined,
 } from "@ant-design/icons";
-
-import React from "react";
-import { Menu, MenuProps } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import MyLogo from "../../assets/logo.svg"
 
 const SiderMenu = () => {
   const location = useLocation();
-  console.log(location.pathname);
+  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
+
   const data = [
     {
       key: "/home",
-      icon: HomeFilled,
+      icon: hoveredIcon === "/home" ? HomeFilled : HomeOutlined,
       label: (
-        <Link exact to={"/home"}>
-          <span>Home</span>
-        </Link>
+          <Link exact to={"/home"} onMouseEnter={() => setHoveredIcon("/home")} onMouseLeave={() => setHoveredIcon(null)}>
+            <span>Home</span>
+          </Link>
+      ),
+    },
+    {
+      key: "/macro",
+      icon: hoveredIcon === "/macro" ? SlidersFilled : SlidersOutlined,
+      label: (
+          <Link exact to={"/macro"} onMouseEnter={() => setHoveredIcon("/macro")} onMouseLeave={() => setHoveredIcon(null)}>
+            <span>Macro</span>
+          </Link>
       ),
     },
     {
       key: "/news",
-      icon: ReadFilled,
+      icon: hoveredIcon === "/news" ? ReadFilled : ReadOutlined,
       label: (
-        <Link exact to={"/news"}>
-          <span>News</span>
-        </Link>
+          <Link exact to={"/news"} onMouseEnter={() => setHoveredIcon("/news")} onMouseLeave={() => setHoveredIcon(null)}>
+            <span>News</span>
+          </Link>
       ),
     },
     {
       key: "/analysis",
-      icon: FundFilled,
+      icon: hoveredIcon === "/analysis" ? FundFilled : FundOutlined,
       label: (
-        <Link exact to={"/analysis"}>
-          <span>Analysis</span>
-        </Link>
+          <Link exact to={"/analysis"} onMouseEnter={() => setHoveredIcon("/analysis")} onMouseLeave={() => setHoveredIcon(null)}>
+            <span>Analysis</span>
+          </Link>
       ),
     },
     {
       key: "/portfolio",
-      icon: WalletFilled,
+      icon: hoveredIcon === "/portfolio" ? WalletFilled : WalletOutlined,
       label: (
-        <Link exact to={"/portfolio"}>
-          <span>Portfolio</span>
-        </Link>
+          <Link exact to={"/portfolio"} onMouseEnter={() => setHoveredIcon("/portfolio")} onMouseLeave={() => setHoveredIcon(null)}>
+            <span>Portfolio</span>
+          </Link>
       ),
     },
     {
@@ -56,21 +72,32 @@ const SiderMenu = () => {
       label: "User",
     },
   ];
+
   const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click", e);
   };
+
   return (
-    <Menu
-      mode="inline"
-      theme="dark"
-      defaultSelectedKeys={[location.pathname]}
-      onClick={onClick}
-      items={data.map((d) => ({
-        key: d.key,
-        icon: React.createElement(d.icon),
-        label: d.label,
-      }))}
-    />
+      <>
+          <Row justify={"center"}>
+              <Col span={24} style={{display:"flex",justifyContent:"center"}}>
+                  <img src={MyLogo} alt="Logo"          style={{ width: 100}}/>
+              </Col>
+          </Row>
+
+        <Menu
+            mode="inline"
+            theme="dark"
+            defaultSelectedKeys={[location.pathname]}
+            onClick={onClick}
+        >
+
+          {data.map((d) => (
+              <Menu.Item key={d.key} icon={React.createElement(d.icon)}>
+                {d.label}
+              </Menu.Item>
+          ))}
+        </Menu>
+      </>
   );
 };
 

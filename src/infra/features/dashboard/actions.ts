@@ -1,4 +1,4 @@
-import { createAsyncAction } from "typesafe-actions";
+import {createAsyncAction} from "typesafe-actions";
 
 import * as T from "./types";
 
@@ -25,3 +25,10 @@ export const fetchMarketNewsContent = createAsyncAction(
   "FETCH_MARKET_NEWS_CONTENT_SUCCESS",
   "FETCH_MARKET_NEWS_CONTENT_FAILURE"
 )<string, T.NewsContent, void>();
+
+
+export const fetchMarketMacroOhlc = createAsyncAction(
+    "FETCH_MARKET_MACRO_OHLC_REQUEST",
+    "FETCH_MARKET_MACRO_OHLC_SUCCESS",
+    "FETCH_MARKET_MACRO_OHLCT_FAILURE"
+)<void, T.OhlcData[], void>();

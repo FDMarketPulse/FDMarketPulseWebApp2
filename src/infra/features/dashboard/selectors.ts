@@ -1,7 +1,5 @@
-import { RootState } from "@/infra/rootState";
+import {RootState} from "@/infra/rootState";
 
-export const sectorReturn = ({ dashboard }: RootState) =>
-  dashboard.sectorReturn;
 
 export const sectorIndustryReturn = ({ dashboard }: RootState) =>
   dashboard.secIndData;
@@ -11,3 +9,7 @@ export const marketNewsOverall = ({ dashboard }: RootState) =>
 
 export const marketNewsContent = ({ dashboard }: RootState) =>
   dashboard.newsContent;
+
+export const marketMacroOhlcData = ({ dashboard }: RootState) =>
+    dashboard.macroData;
+

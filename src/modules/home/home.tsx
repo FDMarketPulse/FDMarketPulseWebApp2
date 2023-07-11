@@ -1,12 +1,12 @@
 import React from "react";
-import { Canvas } from "@react-three/fiber";
-import { useSpring } from "@react-spring/core";
-import { OrbitControls } from "@react-three/drei";
+import {Canvas} from "@react-three/fiber";
+import {useSpring} from "@react-spring/core";
+import {OrbitControls} from "@react-three/drei";
 import Scene from "@/components/threejsModel/scene";
-import { Button, Col, Row, Typography } from "antd";
+import {Button, Col, Row, Typography} from "antd";
 
 const Home = () => {
-  const [{ background, fill }, set] = useSpring(
+  const [ set] = useSpring(
     { background: "#f0f0f0", fill: "#202020" },
     []
   );
@@ -28,24 +28,24 @@ const Home = () => {
           </Canvas>
         </div>
       </Col>
-      <Col span={8}>
-        <Row>
+      <Col span={12}>
+        <Row gutter={16}>
           <Col span={24}>
             {" "}
             <Typography.Title level={2}>
-              Stay Ahead of the Market with FDMarketPulse:
+              Stay Ahead with FDMarketPulse:
               <br />
-              <span>
-                Your Ultimate Source for Real-Time Financial Insights and
+              <Typography.Title level={5}>
+                Your Ultimate Solution for Real-Time Insights and
                 Analysis!
-              </span>
+              </Typography.Title>
             </Typography.Title>
           </Col>
           <Col span={12}>
-            <Button>Sign Up</Button>
+            <Button type={"primary"} block={true}>Sign Up</Button>
           </Col>
-          <Col span={12}>
-            <Button>Sign In</Button>
+          <Col span={12} >
+            <Button block={true}>Sign In</Button>
           </Col>
         </Row>
       </Col>

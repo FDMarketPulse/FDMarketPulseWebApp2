@@ -7,10 +7,12 @@ export const defaultState: T.Store = {
     secIndData: "SUCCESS",
     newsList: "SUCCESS",
     newsContent: "SUCCESS",
+    macroData: "SUCCESS"
   },
   globalDate: 0,
   sectorReturn: [],
   secIndData: [],
   newsList: [],
   newsContent: { id: "", content: [], summary: "" },
+  macroData:[]
 };

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, FloatButton, Input, Tooltip } from "antd";
 import { CustomerServiceOutlined, MessageOutlined } from "@ant-design/icons";
-import ChatBot from "@/modules/chatbot/chatbot";
 
 const FloatingButton: React.FC = () => {
   const [chatVisible, setChatVisible] = useState(false);

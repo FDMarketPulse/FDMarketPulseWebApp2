@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import AnalysisDashboard from "@/modules/analysis/analysis";
 import News from "@/modules/news/news";
+import Macro from "@/modules/macro/macro";
 
 const router = createBrowserRouter([
   {
@@ -19,9 +20,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        index: true,
+        element: <Home />},
+      {
         path: "/home",
-        element: <Home />,
-      },
+        element: <Home />},
+      {path:"/macro",element:<Macro/>},
       { path: "/news", element: <News /> },
       {
         path: "/portfolio",
