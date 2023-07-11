@@ -1,10 +1,8 @@
 import React from "react";
-import { Card, Col, Divider, Row, Space, Statistic, Tabs } from "antd";
+import { Card, Col, Divider, Row, Space, Statistic } from "antd";
 import AccountData from "@/modules/portfolio/dummyAccount";
 import OverviewTable from "@/modules/portfolio/overview/overviewTable";
 import CountUp from "react-countup";
-import DonutPie from "@/components/charts/donut/donut";
-import ChartsDummyData from "@/modules/portfolio/overview/chartsDummyData";
 
 const formatter = (value: number) => <CountUp end={value} separator="," />;
 const Overview = () => {
@@ -28,17 +26,17 @@ const Overview = () => {
           <Card>
             <OverviewTable />
           </Card>
-          <Card>
-            <Tabs
-              items={ChartsDummyData.map((d, i) => {
-                return {
-                  label: d["type"],
-                  key: d["type"],
-                  children: <DonutPie data={d["data"]} />,
-                };
-              })}
-            />
-          </Card>
+          {/*<Card>*/}
+          {/*  <Tabs*/}
+          {/*    items={ChartsDummyData.map((d, i) => {*/}
+          {/*      return {*/}
+          {/*        label: d["type"],*/}
+          {/*        key: d["type"],*/}
+          {/*        children: <DonutPie data={d["data"]} />,*/}
+          {/*      };*/}
+          {/*    })}*/}
+          {/*  />*/}
+          {/*</Card>*/}
         </Space>
       </Col>
     </Row>
