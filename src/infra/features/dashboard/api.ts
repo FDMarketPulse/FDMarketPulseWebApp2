@@ -4,7 +4,7 @@ import {API_BASE_URL} from "../../../../config";
 
 
 const api = axios.create({
-    baseURL:"https://137.184.4.164:8081"
+    baseURL:"https://fd-market-pulse-api.onrender.com"
 });
 
 console.log(API_BASE_URL)
