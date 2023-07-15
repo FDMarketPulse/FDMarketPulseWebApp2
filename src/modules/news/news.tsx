@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {useRootSelector} from "@/infra/hooks";
-import {DashAction, DashSel} from "@/infra/features/dashboard";
-import {Card, Col, List, Modal, Row, Tabs} from "antd";
-import {useDispatch} from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useRootSelector } from "@/infra/hooks";
+import { ChatAction, ChatSel } from "@/infra/features/chatbot";
+import { DashAction, DashSel } from "@/infra/features/dashboard";
+import { Card, Col, List, Modal, Row, Tabs } from "antd";
+import { useDispatch } from "react-redux";
+import SentimentsCard from "@/components/card/sentimentsCard";
 
 const onChange = (key: string) => {
     console.log(key);
@@ -10,26 +12,51 @@ const onChange = (key: string) => {
 
 const News = () => {
     const dispatch = useDispatch();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [content, setContent] = useState("");
+    const [payload, setPayload] = useState({message:"",apiKey:""});
+    const [id, setId] = useState("");
+
+    const gptApiKey = useRootSelector(ChatSel.apiKey)
+    const newsData = useRootSelector(DashSel.marketNewsOverall);
+    const newsContent = useRootSelector(DashSel.marketNewsContent);
+    const newsSentiment = useRootSelector(ChatSel.newsSentimentGpt)
+
+
     useEffect(() => {
         dispatch(DashAction.fetchMarketNewsOverall.request());
     }, [dispatch]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [content, setContent] = useState("");
-    const [id, setId] = useState("");
+
+    useEffect(() => {
+        if (gptApiKey && newsContent.content) {
+            const updatedPayload = {
+                message: newsContent.content.join(" "),
+                apiKey: gptApiKey,
+            };
+            dispatch(ChatAction.fetchNewsSentiment.request(updatedPayload));
+        }
+    }, [gptApiKey, newsContent.content, dispatch]);
+
     const setModalOpen = () => {
         setIsModalOpen(true);
     };
+
     const handleOk = () => {
         setIsModalOpen(false);
-    };
 
+    };
     const handleCancel = () => {
         setIsModalOpen(false);
+        dispatch(ChatAction.fetchNewsSentiment.success({
+            sentiment: "",
+            sentimentScore:"",
+            direction:"",
+            stocksTagList:[],
+            sentimentSummary:""
+        })); // Clear the newsSentiment
     };
-    const newsData = useRootSelector(DashSel.marketNewsOverall);
-    const newsContent = useRootSelector(DashSel.marketNewsContent);
-
-    const handleMoreClick = (item) => {
+    const handleMoreClick = async (item) => {
         setContent(item.title);
         setId(item.id);
         dispatch(DashAction.fetchMarketNewsContent.request(item.id));
@@ -85,15 +112,16 @@ const News = () => {
     });
 
     return (
-        <div>
+      <div style={{ height: "100%", overflow: "auto" }}>
             <Tabs defaultActiveKey="1" items={newsTransformData} onChange={onChange} />
             <Modal
                 title={content}
-                visible={isModalOpen}
+                open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
                 destroyOnClose={true}
             >
+                {gptApiKey && <SentimentsCard data={newsSentiment}/>}
                 {newsContent.content &&
                     newsContent.content.map((c, index) => (
                         <p key={index}>
@@ -101,6 +129,8 @@ const News = () => {
                             <br />
                         </p>
                     ))}
+                <br/>
+
             </Modal>
         </div>
     );

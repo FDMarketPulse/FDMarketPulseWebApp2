@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path, { resolve } from "path";
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
-
+import { defineConfig, loadEnv } from 'vite';
 
 // dotenvExpand(dotenv.config());
 

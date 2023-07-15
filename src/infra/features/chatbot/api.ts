@@ -1,13 +1,15 @@
-import axios, {AxiosResponse} from "axios";
+import axios, { AxiosResponse } from "axios";
 
 
 const api = axios.create({
-    baseURL:"https://fd-market-pulse-api.onrender.com"
+    baseURL:import.meta.env.VITE_BASE_URL
 });
 
 export const fetchChat = (payload: any): Promise<AxiosResponse<any>> => {
-    console.log("Call API")
     return api.post("/chat/chat", payload);
 };
 
+export const fetchNewSentiment = (payload: any): Promise<AxiosResponse<any>> => {
+    return api.post("/chat/news-sentiment", payload);
+};
 export default api;

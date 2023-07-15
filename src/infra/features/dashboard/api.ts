@@ -1,13 +1,12 @@
-import axios, {AxiosResponse} from "axios";
+import axios, { AxiosResponse } from "axios";
 import * as T from "./types";
-import {API_BASE_URL} from "../../../../config";
+import { API_BASE_URL } from "../../../../config";
 
 
 const api = axios.create({
-    baseURL:"https://fd-market-pulse-api.onrender.com"
+    baseURL:import.meta.env.VITE_BASE_URL
 });
 
-console.log(API_BASE_URL)
 export const fetchSectorOverview = (): Promise<AxiosResponse<T.SecIndReturns[]>> => {
     return api.get("/sector/sector-overview");
 };

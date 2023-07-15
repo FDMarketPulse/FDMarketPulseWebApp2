@@ -17,6 +17,7 @@ const FloatingChatWindow: React.FC = () => {
   const dispatch = useDispatch();
   const chatGptData = useRootSelector(ChatSel.chatGptReturn);
   const isChatLoading = useRootSelector(ChatSel.isChatGptReturnLoading)
+  const gptApiKey = useRootSelector(ChatSel.apiKey)
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [userMessage, setUserMessage] = useState("");
   const [secretKey, setSecretKey] = useState("");
@@ -37,13 +38,17 @@ const FloatingChatWindow: React.FC = () => {
       handleSendMessage();
     }
   };
-  const handleSecretKeyChange = (e) => {
+  const handleSecretKeyChange = async (e) => {
     setTempSecretKey(e.target.value);
+    await dispatch(ChatAction.setGptApiKey(e.target.value))
   };
-  const handleSecretKeyEnter = (e) => {
+  const handleSecretKeyEnter = async (e) => {
     if (e.key === "Enter") {
       setSecretKey(e.target.value);
+      await dispatch(ChatAction.setGptApiKey(e.target.value))
+
     }
+
   };
   const handleSendMessage = async () => {
     // Create a new message object for the user's message
