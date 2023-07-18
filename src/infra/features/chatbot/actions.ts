@@ -1,10 +1,10 @@
-import {createAction, createAsyncAction} from "typesafe-actions";
+import { createAction, createAsyncAction } from "typesafe-actions";
 
 import * as T from "./types";
-import { chatRequest, newsSentiment } from "./types";
 
 export const SET_CHAT_GPT_RETURN = "SET_CHAT_GPT_RETURN";
 export const SET_GPT_API_KEY = "SET_GPT_API_KEY"
+export const SET_NEWS_SENTIMENT_REQUEST = "SET_NEWS_SENTIMENT_REQUEST"
 export const FETCH_CHAT_GPT_REQUEST = "FETCH_CHAT_GPT_REQUEST";
 export const FETCH_CHAT_GPT_SUCCESS = "FETCH_CHAT_GPT_SUCCESS";
 export const FETCH_CHAT_GPT_FAILURE = "FETCH_CHAT_GPT_FAILURE";
@@ -20,6 +20,8 @@ export const fetchChatGptReturn = createAsyncAction(
     FETCH_CHAT_GPT_SUCCESS,
     FETCH_CHAT_GPT_FAILURE
 )<T.chatReturns, T.chatReturns, void>();
+
+export const setNewsSentimentToReq = createAction(SET_NEWS_SENTIMENT_REQUEST)<string>()
 
 export const fetchNewsSentiment = createAsyncAction(
   FETCH_NEWS_SENTIMENT_REQUEST,

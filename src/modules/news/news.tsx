@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRootSelector } from "@/infra/hooks";
 import { ChatAction, ChatSel } from "@/infra/features/chatbot";
 import { DashAction, DashSel } from "@/infra/features/dashboard";
-import { Card, Col, List, Modal, Row, Tabs } from "antd";
+import { Card, Col, List, Modal, Row, Spin, Tabs } from "antd";
 import { useDispatch } from "react-redux";
 import SentimentsCard from "@/components/card/sentimentsCard";
 
@@ -22,6 +22,7 @@ const News = () => {
     const newsData = useRootSelector(DashSel.marketNewsOverall);
     const newsContent = useRootSelector(DashSel.marketNewsContent);
     const newsSentiment = useRootSelector(ChatSel.newsSentimentGpt)
+    const isNewsSentimentLoading = useRootSelector(ChatSel.isNewsSentimentLoading);
 
     useEffect(() => {
         dispatch(DashAction.fetchMarketNewsOverall.request());
@@ -43,17 +44,12 @@ const News = () => {
 
     const handleOk = () => {
         setIsModalOpen(false);
+        dispatch(ChatAction.setNewsSentimentToReq(""))
     };
 
     const handleCancel = () => {
         setIsModalOpen(false);
-        dispatch(ChatAction.fetchNewsSentiment.success({
-            sentiment: "",
-            sentimentScore:"",
-            direction:"",
-            stocksTagList:[],
-            sentimentSummary:""
-        })); // Clear the newsSentiment
+        dispatch(ChatAction.setNewsSentimentToReq(""))
     };
 
     const handleMoreClick = async (item) => {
@@ -121,7 +117,7 @@ const News = () => {
             onCancel={handleCancel}
             destroyOnClose={true}
           >
-              <SentimentsCard data={newsSentiment}/>
+              {isNewsSentimentLoading?  <Spin tip="Loading..." />:  <SentimentsCard data={newsSentiment}/>}
               {newsContent.content &&
                 newsContent.content.map((c, index) => (
                   <p key={index}>

@@ -17,6 +17,11 @@ export default (state = defaultState, action: AllActions) =>
                 draft.chatReturns = action.payload;
                 break;
 
+            case getType(A.setNewsSentimentToReq):
+                draft.status.newsSentiment = "REQUEST"
+                break;
+
+
             case getType(A.fetchChatGptReturn.request):
                 draft.status.chatReturns = "REQUEST";
                 break;
