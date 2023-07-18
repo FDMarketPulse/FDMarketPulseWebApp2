@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import * as T from "./types";
-import { API_BASE_URL } from "../../../../config";
 
 
 const api = axios.create({
