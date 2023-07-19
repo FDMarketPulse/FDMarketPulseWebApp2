@@ -41,12 +41,12 @@ const Home = () => {
               </Typography.Title>
             </Typography.Title>
           </Col>
-          <Col span={12}>
-            <Button type={"primary"} block={true}>Sign Up</Button>
-          </Col>
-          <Col span={12} >
-            <Button block={true}>Sign In</Button>
-          </Col>
+          {/*<Col span={12}>*/}
+          {/*  <Button type={"primary"} block={true}>Sign Up</Button>*/}
+          {/*</Col>*/}
+          {/*<Col span={12} >*/}
+          {/*  <Button block={true}>Sign In</Button>*/}
+          {/*</Col>*/}
         </Row>
       </Col>
     </Row>
