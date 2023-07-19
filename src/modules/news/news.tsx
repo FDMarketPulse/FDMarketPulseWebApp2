@@ -23,6 +23,7 @@ const News = () => {
     const newsContent = useRootSelector(DashSel.marketNewsContent);
     const newsSentiment = useRootSelector(ChatSel.newsSentimentGpt)
     const isNewsSentimentLoading = useRootSelector(ChatSel.isNewsSentimentLoading);
+    const isNewsListLoading = useRootSelector(DashSel.isNewsLoading)
 
     useEffect(() => {
         dispatch(DashAction.fetchMarketNewsOverall.request());
@@ -109,24 +110,37 @@ const News = () => {
 
     return (
       <div style={{ height: "100%", overflow: "auto" }}>
-          <Tabs defaultActiveKey="1" items={newsTransformData} onChange={onChange} />
-          <Modal
-            title={content}
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            destroyOnClose={true}
-          >
-              {isNewsSentimentLoading?  <Spin tip="Loading..." />:  <SentimentsCard data={newsSentiment}/>}
-              {newsContent.content &&
-                newsContent.content.map((c, index) => (
-                  <p key={index}>
-                      {c}
-                      <br />
-                  </p>
-                ))}
-              <br/>
-          </Modal>
+          {isNewsListLoading?(
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%'
+            }}>
+                <Spin tip="Loading news..." size="large" />
+            </div>
+          ):        <div>
+              <Tabs defaultActiveKey="1" items={newsTransformData} onChange={onChange} />
+              <Modal
+                title={content}
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                destroyOnClose={true}
+              >
+                  {isNewsSentimentLoading?  <Spin tip="Loading..." />:  <SentimentsCard data={newsSentiment}/>}
+                  {newsContent.content &&
+                    newsContent.content.map((c, index) => (
+                      <p key={index}>
+                          {c}
+                          <br />
+                      </p>
+                    ))}
+                  <br/>
+              </Modal>
+          </div>}
+
+
       </div>
     );
 };
