@@ -5,6 +5,7 @@ import { DashAction, DashSel } from "@/infra/features/dashboard";
 import { Card, Col, List, Modal, Row, Spin, Tabs } from "antd";
 import { useDispatch } from "react-redux";
 import SentimentsCard from "@/components/card/sentimentsCard";
+import { formatDistanceToNow } from 'date-fns'
 
 const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY; // Set your GPT API key as constant here
 
@@ -60,6 +61,7 @@ const News = () => {
         setModalOpen();
     };
 
+    console.log(newsData)
     const newsTransformData = newsData.map((d, i) => {
         return {
             key: i + 1,
@@ -81,12 +83,12 @@ const News = () => {
                   <List.Item key={item.index}>
                       <Card
                         title={
-                            <Row>
+                            <Row gutter={32}>
                                 <Col span={8}>
                                     <i>{item.provider}</i>
                                 </Col>
                                 <Col span={8}>
-                                    {item.sentiment > 0 ? "positive" : "negative"}
+                                    {formatDistanceToNow(new Date(Number(item.date) * 1000), { addSuffix: true })}
                                 </Col>
                             </Row>
                         }
