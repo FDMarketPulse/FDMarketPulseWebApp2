@@ -5,22 +5,22 @@ import SentimentsCard from "@/components/card/sentimentsCard";
 import { useRootSelector } from "@/infra/hooks";
 import { ChatAction, ChatSel } from "@/infra/features/chatbot";
 import { useDispatch } from "react-redux";
+import { PulseLoader } from "react-spinners";
+
 const { Title, Paragraph } = Typography;
 
 const NewsAnalysisTab: React.FC = () => {
   const dispatch = useDispatch();
-  const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY; // Set your GPT API key as constant here
+  const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY;
   const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
   const newsSentiment = useRootSelector(ChatSel.tranNewsSentimentGpt)
   const isNewsSentimentLoading = useRootSelector(ChatSel.isTranslationNewsSentimentLoading)
-  // Dummy data for SentimentsCard
 
   const handleTranslate = async () => {
-    // This is where you would call your translation service or library
-    // For now, it just mirrors the input.
-    // For now, it just mirrors the input.
-    console.log("CLICK")
+    if (input.trim() === "") {
+      dispatch(ChatAction.resetTransNewsSentiment(""));
+      return;
+    }
     const updatedPayload = {
       message: input,
       apiKey: GPT_API_KEY,
@@ -33,7 +33,7 @@ const NewsAnalysisTab: React.FC = () => {
       <Col xs={24} lg={12}>
         <Card bordered={false}>
           <Space direction={"vertical"} style={{width: "100%"}}>
-            <Title level={3}>News Analyzer </Title>
+            <Title level={3}>News Analyzer</Title>
             <Paragraph type="secondary">What your news about?</Paragraph>
             <Input.TextArea
               rows={10}
@@ -49,20 +49,21 @@ const NewsAnalysisTab: React.FC = () => {
       </Col>
       <Col xs={24} lg={12}>
         <Card>
-          {isNewsSentimentLoading?"Loading":
+          {isNewsSentimentLoading?   <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%"}}>
+              <PulseLoader color={"#00b96b"} size={15} />
+            </div>:
             <Space direction={"vertical"} style={{width: "100%"}}>
-            <Title level={3}>AI Output</Title>
-            <Paragraph type="secondary">Enjoy the outstanding analysis!</Paragraph>
-            <Input.TextArea
-              rows={10}
-              value={newsSentiment.translation}
-              readOnly
-              placeholder="Translated news will appear here"
-              style={{width: "100%"}}
-            />
-            <SentimentsCard data={newsSentiment} /> {/* Render the SentimentsCard here */}
-          </Space>}
-
+              <Title level={3}>AI Output</Title>
+              <Paragraph type="secondary">Enjoy the outstanding analysis!</Paragraph>
+              <Input.TextArea
+                rows={10}
+                value={newsSentiment.translation}
+                readOnly
+                placeholder="Translated news will appear here"
+                style={{width: "100%"}}
+              />
+              <SentimentsCard data={newsSentiment} />
+            </Space>}
         </Card>
       </Col>
     </Row>

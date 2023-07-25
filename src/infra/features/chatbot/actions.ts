@@ -4,6 +4,7 @@ import * as T from "./types";
 
 export const SET_CHAT_GPT_RETURN = "SET_CHAT_GPT_RETURN";
 export const SET_GPT_API_KEY = "SET_GPT_API_KEY"
+export const RESET_TRANS_NEWS_SENTIMENT = "RESET_TRANS_NEWS_SENTIMENT"
 export const SET_NEWS_SENTIMENT_REQUEST = "SET_NEWS_SENTIMENT_REQUEST"
 export const FETCH_CHAT_GPT_REQUEST = "FETCH_CHAT_GPT_REQUEST";
 export const FETCH_CHAT_GPT_SUCCESS = "FETCH_CHAT_GPT_SUCCESS";
@@ -25,6 +26,7 @@ export const fetchChatGptReturn = createAsyncAction(
 )<T.chatReturns, T.chatReturns, void>();
 
 export const setNewsSentimentToReq = createAction(SET_NEWS_SENTIMENT_REQUEST)<string>()
+export const resetTransNewsSentiment = createAction(RESET_TRANS_NEWS_SENTIMENT )<string>()
 
 export const fetchNewsSentiment = createAsyncAction(
   FETCH_NEWS_SENTIMENT_REQUEST,

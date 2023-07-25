@@ -13,6 +13,16 @@ export default (state = defaultState, action: AllActions) =>
                 draft.apiKey = action.payload;
                 break
 
+            case getType(A.resetTransNewsSentiment):
+                draft.tranNewsSentiment = {
+                    translation:"",
+                    sentiment: "",
+                    sentimentScore:"",
+                    direction:"",
+                    stocksTagList:[],
+                    sentimentSummary:""
+                }
+                break
             case getType(A.setChatGptReturn):
                 draft.chatReturns = action.payload;
                 break;
