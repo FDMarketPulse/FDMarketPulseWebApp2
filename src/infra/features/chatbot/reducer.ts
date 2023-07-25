@@ -66,5 +66,17 @@ export default (state = defaultState, action: AllActions) =>
                 draft.tranNewsSentiment = action.payload;
                 break;
 
+            case getType(A.fetchQnA.request):
+                draft.status.qnaResp = "REQUEST";
+                break;
+            case getType(A.fetchQnA.failure):
+                draft.status.qnaResp = "FAILURE";
+                break;
+            case getType(A.fetchQnA.success):
+
+                draft.status.qnaResp= "SUCCESS";
+                draft.qnaResp = action.payload;
+                break;
+
         }
     });

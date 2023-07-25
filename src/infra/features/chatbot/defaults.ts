@@ -7,7 +7,8 @@ export const defaultState: T.Store = {
         chatReturns:"SUCCESS",
         newsSentiment:"SUCCESS",
         apiKey:"SUCCESS",
-        tranNewsSentiment:"SUCCESS"
+        tranNewsSentiment:"SUCCESS",
+        qnaResp:"SUCCESS"
     },
     apiKey:"",
     chatReturns:{message:"",apiKey:"",chatHistory:[{role:"assistant",content:"Hi, this is FDMarketPulse GPT 3.5 Assistant."}]},
@@ -23,6 +24,9 @@ export const defaultState: T.Store = {
         direction:"",
         stocksTagList:[],
         sentimentSummary:""
-    }
+    },
+    qnaResp:{
+        resp:""
+    },
 };
 

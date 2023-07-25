@@ -15,6 +15,9 @@ export const FETCH_NEWS_SENTIMENT_FAILURE = "FETCH_NEWS_SENTIMENT_FAILURE"
 export const FETCH_NEWS_TRAN_SENTIMENT_REQUEST = "FETCH_NEWS_TRAN_SENTIMENT_REQUEST"
 export const FETCH_NEWS_TRAN_SENTIMENT_SUCCESS = "FETCH_NEWS_TRAN_SENTIMENT_SUCCESS"
 export const FETCH_NEWS_TRAN_SENTIMENT_FAILURE = "FETCH_NEWS_TRAN_SENTIMENT_FAILURE"
+export const FETCH_QNA_REQUEST = "FETCH_QNA_REQUEST"
+export const FETCH_QNA_SUCCESS = "FETCH_QNA_SUCCESS"
+export const FETCH_QNA_FAILURE = "FETCH_QNA_FAILURE"
 
 export const setChatGptReturn = createAction(SET_CHAT_GPT_RETURN)<T.chatReturns>();
 export const setGptApiKey = createAction(SET_GPT_API_KEY)<string>();
@@ -39,3 +42,9 @@ export const fetchTranNewsSentiment = createAsyncAction(
   FETCH_NEWS_TRAN_SENTIMENT_SUCCESS,
   FETCH_NEWS_TRAN_SENTIMENT_FAILURE
 )<T.chatRequest, T.translateNewsSentiment, void>();
+
+export const fetchQnA = createAsyncAction(
+  FETCH_QNA_REQUEST,
+  FETCH_QNA_SUCCESS,
+  FETCH_QNA_FAILURE
+)<T.qnaReturn,T.qnaResp,void>()

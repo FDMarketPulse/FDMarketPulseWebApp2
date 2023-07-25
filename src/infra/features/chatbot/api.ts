@@ -16,4 +16,10 @@ export const fetchNewSentiment = (payload: any): Promise<AxiosResponse<any>> => 
 export const fetchNewSentimentTranslate = (payload: any): Promise<AxiosResponse<any>> => {
     return api.post("/chat/news-sentiment-translation", payload);
 };
+
+
+export const fetchQnAResp = (payload: any): Promise<AxiosResponse<any>> => {
+    return api.post("/chat/qna", payload);
+};
+
 export default api;

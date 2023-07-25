@@ -5,11 +5,14 @@ export type Store={
         newsSentiment:LoadingState;
         apiKey:LoadingState;
         tranNewsSentiment:LoadingState;
+        qnaResp:LoadingState
+
     };
     apiKey:string
     chatReturns:chatReturns
     newsSentiment:newsSentiment
     tranNewsSentiment: translateNewsSentiment
+    qnaResp:qnaResp
 }
 
 
@@ -48,5 +51,11 @@ export type chatRequest= {
     apiKey:string
 }
 
+export type qnaReturn = {
+    message:string
+    url:string
+}
 
-
+export type qnaResp = {
+    resp:string
+}

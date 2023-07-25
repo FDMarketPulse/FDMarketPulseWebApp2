@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Tabs } from "antd";
 import NewsAnalysisTab from "./newsAnalysisTab";
+import DocAnalysisTab from "@/modules/gpt/documentAnalysisTab";
 
 const { TabPane } = Tabs;
 
@@ -10,9 +11,9 @@ const GptPage: React.FC = () => {
       <TabPane tab="News Analysis" key="1">
         <NewsAnalysisTab />
       </TabPane>
-      <TabPane tab="Earnings Analysis" key="2">
+      <TabPane tab="Documents Analysis" key="2">
         <Card>
-          Coming soon! Stay Tune!
+          <DocAnalysisTab/>
         </Card>
       </TabPane>
     </Tabs>

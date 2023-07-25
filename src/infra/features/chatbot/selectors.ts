@@ -10,8 +10,11 @@ export const newsSentimentGpt =({ chatbot }: RootState) =>
 export const tranNewsSentimentGpt = ({ chatbot }: RootState) =>
   chatbot.tranNewsSentiment
 
-export const apiKey =({ chatbot }: RootState) =>
-  chatbot.apiKey
+export const qnaResp = ({ chatbot }: RootState) =>
+  chatbot.qnaResp
+
+export const isQnARespLoading = ({ chatbot }: RootState) =>
+  chatbot.status.qnaResp === "REQUEST"
 
 export const isNewsSentimentLoading = ({ chatbot }: RootState) =>
   chatbot.status.newsSentiment === "REQUEST"
