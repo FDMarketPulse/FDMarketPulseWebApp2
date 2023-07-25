@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Tabs } from "antd";
-import NewsAnalysisTab from "./NewsAnalysisTab";
+import NewsAnalysisTab from "./newsAnalysisTab";
 
 const { TabPane } = Tabs;
 
