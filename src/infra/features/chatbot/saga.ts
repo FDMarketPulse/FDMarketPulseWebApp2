@@ -1,7 +1,7 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import * as A from "./actions";
 import { camelizeKeys } from "humps";
-import { fetchChat, fetchNewSentiment } from "@/infra/features/chatbot/api";
+import { fetchChat, fetchNewSentiment, fetchNewSentimentTranslate } from "@/infra/features/chatbot/api";
 import { objectKeysToSnakeCaseV2 } from "keys-converter";
 
 export function* fetchChatGptReturn(payload:never) {
@@ -23,9 +23,19 @@ export function* fetchNewsSentiment(payload:never) {
     }
 }
 
+export function* fetchTransNewsSentiment(payload:never) {
+    try {
+        const { data } = yield call(fetchNewSentimentTranslate,objectKeysToSnakeCaseV2(payload.payload))
+        yield put(A.fetchTranNewsSentiment.success(camelizeKeys(data)));
+    } catch (e) {
+        yield put(A.fetchTranNewsSentiment.failure());
+    }
+}
+
 export default function* () {
     yield all([
         takeLatest(A.fetchChatGptReturn.request, fetchChatGptReturn),
-        takeLatest(A.fetchNewsSentiment.request,fetchNewsSentiment)
+        takeLatest(A.fetchNewsSentiment.request,fetchNewsSentiment),
+        takeLatest(A.fetchTranNewsSentiment.request,fetchTransNewsSentiment)
     ]);
 }

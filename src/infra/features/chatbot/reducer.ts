@@ -44,5 +44,17 @@ export default (state = defaultState, action: AllActions) =>
                 draft.newsSentiment = action.payload;
                 break;
 
+
+            case getType(A.fetchTranNewsSentiment.request):
+                draft.status.tranNewsSentiment = "REQUEST";
+                break;
+            case getType(A.fetchTranNewsSentiment.failure):
+                draft.status.tranNewsSentiment = "FAILURE";
+                break;
+            case getType(A.fetchTranNewsSentiment.success):
+                draft.status.tranNewsSentiment= "SUCCESS";
+                draft.tranNewsSentiment = action.payload;
+                break;
+
         }
     });

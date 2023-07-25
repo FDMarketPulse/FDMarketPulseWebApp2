@@ -57,7 +57,10 @@ const FloatingChatWindow: React.FC = () => {
   }, [chatGptData.chatHistory]);
 
   const renderMessages = () => {
-    return chatGptData.chatHistory.map((message, index) => (
+    const uniqueChatHistory = chatGptData.chatHistory.filter((value, index, self) => {
+      return self.findIndex(v => v.role === value.role && v.content === value.content) === index;
+    });
+    return uniqueChatHistory.map((message, index) => (
       <Row key={index} justify={message.role === "user" ? "start" : "end"}>
         <Col span={18}>
           <Card

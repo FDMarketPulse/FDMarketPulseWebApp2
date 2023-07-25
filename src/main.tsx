@@ -12,6 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import AnalysisDashboard from "@/modules/analysis/analysis";
 import News from "@/modules/news/news";
 import Macro from "@/modules/macro/macro";
+import GptPage from "@/modules/gpt/gpt";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
         element: <Home />},
       {path:"/macro",element:<Macro/>},
       { path: "/news", element: <News /> },
+      { path: "/gpt", element: <GptPage /> },
       {
         path: "/portfolio",
         element: <Portfolio />,

@@ -5,9 +5,9 @@ import { DashAction, DashSel } from "@/infra/features/dashboard";
 import { Card, Col, List, Modal, Row, Spin, Tabs } from "antd";
 import { useDispatch } from "react-redux";
 import SentimentsCard from "@/components/card/sentimentsCard";
-import { formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from "date-fns";
 
-const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY; // Set your GPT API key as constant here
+const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY;
 
 const onChange = (key: string) => {
     console.log(key);
@@ -15,16 +15,15 @@ const onChange = (key: string) => {
 
 const News = () => {
     const dispatch = useDispatch();
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [content, setContent] = useState("");
     const [id, setId] = useState("");
 
     const newsData = useRootSelector(DashSel.marketNewsOverall);
     const newsContent = useRootSelector(DashSel.marketNewsContent);
-    const newsSentiment = useRootSelector(ChatSel.newsSentimentGpt)
+    const newsSentiment = useRootSelector(ChatSel.newsSentimentGpt);
     const isNewsSentimentLoading = useRootSelector(ChatSel.isNewsSentimentLoading);
-    const isNewsListLoading = useRootSelector(DashSel.isNewsLoading)
+    const isNewsListLoading = useRootSelector(DashSel.isNewsLoading);
 
     useEffect(() => {
         dispatch(DashAction.fetchMarketNewsOverall.request());
@@ -61,7 +60,6 @@ const News = () => {
         setModalOpen();
     };
 
-    console.log(newsData)
     const newsTransformData = newsData.map((d, i) => {
         return {
             key: i + 1,
@@ -74,7 +72,6 @@ const News = () => {
                         provider: e.provider,
                         id: e.id,
                         title: e.title,
-                        sentiment: e.sentiment,
                         index: i,
                         date: e.published,
                     };
@@ -112,7 +109,7 @@ const News = () => {
 
     return (
       <div style={{ height: "100%", overflow: "auto" }}>
-          {isNewsListLoading?(
+          {isNewsListLoading ? (
             <div style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -121,28 +118,28 @@ const News = () => {
             }}>
                 <Spin tip="Loading news..." size="large" />
             </div>
-          ):        <div>
-              <Tabs defaultActiveKey="1" items={newsTransformData} onChange={onChange} />
-              <Modal
-                title={content}
-                open={isModalOpen}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                destroyOnClose={true}
-              >
-                  {isNewsSentimentLoading?  <Spin tip="Loading..." />:  <SentimentsCard data={newsSentiment}/>}
-                  {newsContent.content &&
-                    newsContent.content.map((c, index) => (
-                      <p key={index}>
-                          {c}
-                          <br />
-                      </p>
-                    ))}
-                  <br/>
-              </Modal>
-          </div>}
-
-
+          ) : (
+            <div>
+                <Tabs defaultActiveKey="1" items={newsTransformData} onChange={onChange} />
+                <Modal
+                  title={content}
+                  visible={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                  destroyOnClose={true}
+                >
+                    {isNewsSentimentLoading ? <Spin tip="Loading..." /> : <SentimentsCard data={newsSentiment}/>}
+                    {newsContent.content &&
+                      newsContent.content.map((c, index) => (
+                        <p key={index}>
+                            {c}
+                            <br />
+                        </p>
+                      ))}
+                    <br/>
+                </Modal>
+            </div>
+          )}
       </div>
     );
 };

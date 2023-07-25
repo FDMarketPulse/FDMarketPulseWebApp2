@@ -13,6 +13,8 @@ import {
     UserOutlined,
     WalletFilled,
     WalletOutlined,
+ThunderboltOutlined,
+ThunderboltFilled
 } from "@ant-design/icons";
 import MyLogo from "../../assets/logo.svg"
 
@@ -37,6 +39,15 @@ const SiderMenu = () => {
           <Link exact to={"/macro"} onMouseEnter={() => setHoveredIcon("/macro")} onMouseLeave={() => setHoveredIcon(null)}>
             <span>Macro</span>
           </Link>
+      ),
+    },
+    {
+      key: "/gpt",
+      icon: hoveredIcon === "/gpt" ? ThunderboltFilled : ThunderboltOutlined,
+      label: (
+        <Link exact to={"/gpt"} onMouseEnter={() => setHoveredIcon("/gpt")} onMouseLeave={() => setHoveredIcon(null)}>
+          <span>Gpt</span>
+        </Link>
       ),
     },
     {

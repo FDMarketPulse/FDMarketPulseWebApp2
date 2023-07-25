@@ -60,7 +60,6 @@ export type NewsValue = {
   title: string;
   provider: string;
   published: number;
-  sentiment: number;
 };
 
 export type NewsContent = {
