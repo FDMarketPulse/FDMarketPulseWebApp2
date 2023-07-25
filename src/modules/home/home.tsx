@@ -37,7 +37,7 @@ const Home = () => {
               <br />
               <Typography.Title level={5}>
                 Your Ultimate Solution for Real-Time Insights and
-                Analysis!
+                Analysis infuse with Power of GPT!
               </Typography.Title>
             </Typography.Title>
           </Col>
