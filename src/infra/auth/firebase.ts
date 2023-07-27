@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import {getStorage} from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -11,11 +12,11 @@ const firebaseConfig = {
   projectId: "fd-market-pulse",
   storageBucket: "fd-market-pulse.appspot.com",
   messagingSenderId: "587504324970",
-  appId: "1:587504324970:web:79992feabd0d7a62bad513"
+  appId: "1:587504324970:web:79992feabd0d7a62bad513",
 };
 
 // Initialize Firebase
-const firebase = initializeApp(firebaseConfig);
+export const firebase = initializeApp(firebaseConfig);
+export const storage = getStorage(firebase);
 
-export default firebase
 export const auth = getAuth(firebase);

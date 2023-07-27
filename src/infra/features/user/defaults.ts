@@ -4,7 +4,8 @@ export const defaultState: T.Store = {
   status: {
     userSignIn:"SUCCESS",
     authState:"SUCCESS",
-    userSignUp:"SUCCESS"
+    userSignUp:"SUCCESS",
+    userSingOut:"SUCCESS"
   },
   userSignIn:{
     email:"",

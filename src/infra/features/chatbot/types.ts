@@ -6,6 +6,7 @@ export type Store={
         apiKey:LoadingState;
         tranNewsSentiment:LoadingState;
         qnaResp:LoadingState
+        fileUpload:LoadingState
 
     };
     apiKey:string
@@ -13,6 +14,7 @@ export type Store={
     newsSentiment:newsSentiment
     tranNewsSentiment: translateNewsSentiment
     qnaResp:qnaResp
+    fileUpload:string
 }
 
 

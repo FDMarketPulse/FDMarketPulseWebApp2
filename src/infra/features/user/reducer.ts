@@ -32,5 +32,18 @@ export default (state = defaultState, action: AllActions) =>
         draft.authState = action.payload;
         break;
 
+
+      case getType(A.firebaseSignOut.request):
+        draft.status.userSignOut = "REQUEST";
+        break;
+      case getType(A.firebaseSignOut.failure):
+        draft.status.userSignOut = "FAILURE";
+        break;
+      case getType(A.firebaseSignOut.success):
+        draft.status.userSignOut = "SUCCESS";
+        draft.authState = action.payload;
+        break;
+
+
     }
   });

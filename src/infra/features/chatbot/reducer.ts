@@ -78,5 +78,15 @@ export default (state = defaultState, action: AllActions) =>
                 draft.qnaResp = action.payload;
                 break;
 
+            case getType(A.uploadDocFirebase.request):
+                draft.status.fileUpload = "REQUEST";
+                break;
+            case getType(A.uploadDocFirebase.failure):
+                draft.status.fileUpload = "FAILURE";
+                break;
+            case getType(A.uploadDocFirebase.success):
+                draft.status.fileUpload= "SUCCESS";
+                draft.fileUpload = action.payload;
+                break;
         }
     });

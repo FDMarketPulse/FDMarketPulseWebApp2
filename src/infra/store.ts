@@ -13,18 +13,17 @@ import logger from "redux-logger";
 
 import rootSaga from "./rootSaga";
 
-import {rootReducer} from "./rootReducer";
+import { rootReducer } from "./rootReducer";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart"],
+  whitelist: ["authState",'user'],
 };
 
 const sagaMiddleware = createSagaMiddleware();
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-console.log("this is root",rootReducer)
 const middleWares: (false | Middleware<{}, any, Dispatch<AnyAction>>)[] = [
   process.env.NODE_ENV !== "production" && logger,
   sagaMiddleware,
@@ -33,10 +32,12 @@ const middleWares: (false | Middleware<{}, any, Dispatch<AnyAction>>)[] = [
 const composeEnhancer =
   (process.env.NODE_ENV !== "production" &&
     window &&
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 

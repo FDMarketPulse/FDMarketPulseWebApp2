@@ -15,3 +15,9 @@ export const firebaseEmailPasswordSignUp = createAsyncAction(
   AT.FIREBASE_EMAIL_PASSWORD_SIGNUP_SUCCESS,
   AT.FIREBASE_EMAIL_PASSWORD_SIGNUP_FAILURE
 )<T.EmailSignUp, T.AuthState, void>();
+
+export const firebaseSignOut = createAsyncAction(
+    AT.FIREBASE_SIGNOUT_REQUEST,
+    AT.FIREBASE_SIGNOUT_SUCCESS,
+    AT.FIREBASE_SIGNOUT_FAILURE
+)<void, T.AuthState, void>();

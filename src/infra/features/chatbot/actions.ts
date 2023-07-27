@@ -31,3 +31,11 @@ export const fetchQnA = createAsyncAction(
   AT.FETCH_QNA_SUCCESS,
   AT.FETCH_QNA_FAILURE
 )<T.qnaReturn,T.qnaResp,void>()
+
+
+export const uploadDocFirebase = createAsyncAction(
+    AT.FIREBASE_UPLOAD_REQUEST,
+    AT.FIREBASE_UPLOAD_SUCCESS,
+    AT.FIREBASE_UPLOAD_FAILURE
+)<string,string,void>()
+

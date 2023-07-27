@@ -5,6 +5,7 @@ export type Store = {
     userSignIn : LoadingState
     authState: LoadingState
     userSignUp: LoadingState
+    userSingOut:LoadingState
   };
   userSignIn: EmailSignIn
   authState: AuthState
