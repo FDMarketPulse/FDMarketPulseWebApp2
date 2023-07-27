@@ -1,18 +1,24 @@
 import React from "react";
-import {Canvas} from "@react-three/fiber";
-import {useSpring} from "@react-spring/core";
-import {OrbitControls} from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useSpring } from "@react-spring/core";
+import { OrbitControls } from "@react-three/drei";
 import Scene from "@/components/threejsModel/scene";
-import {Button, Col, Row, Typography} from "antd";
+import { Col, Row, Typography } from "antd";
+import SignIn from "@/modules/authentication/signIn";
+import SignUp from "@/modules/authentication/signUp";
+import { useRootSelector } from "@/infra/hooks";
+import { UserSel } from "@/infra/features/user";
 
 const Home = () => {
+
   const [ set] = useSpring(
     { background: "#f0f0f0", fill: "#202020" },
     []
   );
 
   // const data2 = useRootSelector(DashSel.sectorReturn)
-
+  const userAuth = useRootSelector(UserSel.userAuthState)
+  console.log(userAuth)
   return (
     <Row align={"middle"} justify={"center"}>
       <Col span={8}>
@@ -41,12 +47,17 @@ const Home = () => {
               </Typography.Title>
             </Typography.Title>
           </Col>
-          {/*<Col span={12}>*/}
-          {/*  <Button type={"primary"} block={true}>Sign Up</Button>*/}
-          {/*</Col>*/}
-          {/*<Col span={12} >*/}
-          {/*  <Button block={true}>Sign In</Button>*/}
-          {/*</Col>*/}
+          {userAuth.user? <Typography.Title level={3}>Welcome {userAuth.user?.displayName}!</Typography.Title>:  <div>
+            <Row gutter={16}>
+              <Col span={12}>
+                <SignIn/>
+              </Col>
+              <Col span={12} >
+                <SignUp/>
+              </Col>
+            </Row>
+
+          </div>}
         </Row>
       </Col>
     </Row>

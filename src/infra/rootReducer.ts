@@ -1,11 +1,14 @@
 import {DashReducer} from "@/infra/features/dashboard";
+import {ChatReducer} from "@/infra/features/chatbot";
+import {UserReducer} from "@/infra/features/user";
+// import { firestoreReducer } from "redux-firestore";
+
 
 import {combineReducers} from "redux";
 import {RootState} from "./rootState";
-import {ChatReducer} from "@/infra/features/chatbot";
-// import { firestoreReducer } from "redux-firestore";
 
 export const rootReducer = combineReducers<RootState>({
   dashboard: DashReducer,
-  chatbot:ChatReducer
+  chatbot:ChatReducer,
+  user: UserReducer
 });
