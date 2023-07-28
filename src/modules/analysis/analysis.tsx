@@ -19,7 +19,7 @@ const AnalysisDashboard = () => {
     return (
       <>
         {["desc", "asc"].map((d) => (
-          <Col span={12}>
+          <Col span={24}>
             <BarChart
               titleText={d == "desc" ? "Top 5 %" : "Bottom 5 %"}
               subtitleText={""}

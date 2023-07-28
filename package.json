@@ -44,6 +44,7 @@
     "typesafe-actions": "^5.1.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.1.4",
     "@types/react": "^18.0.28",

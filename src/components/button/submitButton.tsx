@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { FC, MouseEventHandler } from "react";
+import  { FC, MouseEventHandler } from "react";
 import styles from "./styles.module.less";
 
 interface CustomButtonProps {
@@ -15,7 +15,6 @@ const SubmitButton: FC<CustomButtonProps> = ({ text, onClick, disable = false })
       className={styles.customButton}
       size={"large"}
       block
-      hoverable={false}
       onClick={onClick}
       disabled={disable}  // Added disabled property here
     >

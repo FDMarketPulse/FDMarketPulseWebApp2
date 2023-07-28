@@ -1,0 +1,25 @@
+:local {
+  .floating-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50vh;
+    animation: floatingAnimation 3s infinite alternate;
+  }
+
+  @keyframes floatingAnimation {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-20px);
+    }
+  }
+
+  .floating-image {
+    width: 50%;
+    height: 50%;
+    max-width: 100%;
+  }
+}

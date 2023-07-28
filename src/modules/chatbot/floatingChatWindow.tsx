@@ -1,7 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.less";
-import { Button, Card, Col, ConfigProvider, FloatButton, Input, Row, Spin, theme } from "antd";
-import { CloseOutlined, CustomerServiceOutlined, MessageOutlined, RobotOutlined, SendOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  Col,
+  ConfigProvider,
+  FloatButton,
+  Input,
+  Row,
+  Spin,
+  theme,
+} from "antd";
+import {
+  CloseOutlined,
+  CustomerServiceOutlined,
+  MessageOutlined,
+  RobotOutlined,
+  SendOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { useRootSelector } from "@/infra/hooks";
 import { ChatAction, ChatSel } from "@/infra/features/chatbot";
 import { useDispatch } from "react-redux";
@@ -11,10 +28,10 @@ const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY; // Set your GPT API key as
 const FloatingChatWindow: React.FC = () => {
   const dispatch = useDispatch();
   const chatGptData = useRootSelector(ChatSel.chatGptReturn);
-  const isChatLoading = useRootSelector(ChatSel.isChatGptReturnLoading)
+  const isChatLoading = useRootSelector(ChatSel.isChatGptReturnLoading);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [userMessage, setUserMessage] = useState("");
-  const chatContainerRef = useRef(null);
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
   const openChatWindow = () => {
     setIsChatOpen(true);
@@ -52,14 +69,21 @@ const FloatingChatWindow: React.FC = () => {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [chatGptData.chatHistory]);
 
   const renderMessages = () => {
-    const uniqueChatHistory = chatGptData.chatHistory.filter((value, index, self) => {
-      return self.findIndex(v => v.role === value.role && v.content === value.content) === index;
-    });
+    const uniqueChatHistory = chatGptData.chatHistory.filter(
+      (value, index, self) => {
+        return (
+          self.findIndex(
+            (v) => v.role === value.role && v.content === value.content
+          ) === index
+        );
+      }
+    );
     return uniqueChatHistory.map((message, index) => (
       <Row key={index} justify={message.role === "user" ? "start" : "end"}>
         <Col span={18}>
@@ -106,7 +130,10 @@ const FloatingChatWindow: React.FC = () => {
             />
           </div>
           <ConfigProvider theme={{ algorithm: theme.compactAlgorithm }}>
-            <Card bordered={false} style={{ height: "500px", overflowY: "auto" }}>
+            <Card
+              bordered={false}
+              style={{ height: "500px", overflowY: "auto" }}
+            >
               <div ref={chatContainerRef} className={styles["chat-container"]}>
                 {renderMessages()}
               </div>
@@ -120,13 +147,16 @@ const FloatingChatWindow: React.FC = () => {
               style={{ flex: 1 }}
               onPressEnter={!isChatLoading && handleKeyPress}
               suffix={
-                isChatLoading ? <Spin /> :
+                isChatLoading ? (
+                  <Spin />
+                ) : (
                   <Button
                     type="primary"
                     icon={<SendOutlined />}
                     onClick={handleSendMessage}
                     disabled={!userMessage}
                   />
+                )
               }
             />
           </div>

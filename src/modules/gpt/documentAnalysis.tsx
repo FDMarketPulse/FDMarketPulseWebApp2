@@ -1,26 +1,41 @@
-import React, { useState } from "react";
-import { Card, Col, Input, Row, Space, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+import { Card, Col, Input, Row, Space, Typography, Upload } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
 import SubmitButton from "@/components/button/submitButton";
 import { useRootSelector } from "@/infra/hooks";
 import { ChatAction, ChatSel } from "@/infra/features/chatbot";
 import { useDispatch } from "react-redux";
 import { PulseLoader } from "react-spinners";
+import type { RcFile } from "antd/es/upload/interface";
 
 const { Title, Paragraph } = Typography;
 
 const DocAnalysisTab: React.FC = () => {
   const dispatch = useDispatch();
-  const [url, setUrl] = useState("");
+  const [file, setFile] = useState<RcFile | null>(null);
   const [question, setQuestion] = useState("");
   const docAnswer = useRootSelector(ChatSel.qnaResp);
   const isDocAnswerLoading = useRootSelector(ChatSel.isQnARespLoading);
+  const docUrl = useRootSelector(ChatSel.fileUrl);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
+  useEffect(() => {
+    if (docUrl && question && isButtonClicked) {
+      const updatedPayload = {
+        url: docUrl,
+        message: question,
+      };
+
+      dispatch(ChatAction.fetchQnA.request(updatedPayload));
+    }
+  }, [docUrl, question, isButtonClicked, dispatch]);
 
   const handleAnalysis = async () => {
-    const updatedPayload = {
-      url: url,
-      message: question,
-    };
-    await dispatch(ChatAction.fetchQnA.request(updatedPayload));
+    if (file) {
+      // uploadDocFirebase action is dispatched and the result (which should be a Promise of doc URL) is stored in uploadedDoc
+      await dispatch(ChatAction.uploadDocFirebase.request(file));
+      setIsButtonClicked(true);
+    }
   };
 
   return (
@@ -30,14 +45,22 @@ const DocAnalysisTab: React.FC = () => {
           <Space direction={"vertical"} style={{ width: "100%" }}>
             <Title level={3}>Document Analyzer</Title>
             <Paragraph type="secondary">
-              Enter your document URL and question:
+              Upload your document and ask a question:
             </Paragraph>
-            <Input
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="Enter your document URL here"
-              style={{ width: "100%" }}
-            />
+            <Upload.Dragger
+              beforeUpload={(file) => {
+                setFile(file);
+                return false; // prevent auto upload
+              }}
+              maxCount={1}
+            >
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p className="ant-upload-text">
+                Click or drag file to this area to upload
+              </p>
+            </Upload.Dragger>
             <Input.TextArea
               rows={10}
               value={question}
@@ -67,7 +90,10 @@ const DocAnalysisTab: React.FC = () => {
               <PulseLoader color={"#00b96b"} size={15} />
             </div>
           ) : (
-            <Space direction={"vertical"} style={{ width: "100%" }}>
+            <Space
+              direction={"vertical"}
+              style={{ width: "100%", height: "100%" }}
+            >
               <Title level={3}>AI Output</Title>
               <Paragraph type="secondary">
                 Here's the answer to your question!
@@ -77,7 +103,7 @@ const DocAnalysisTab: React.FC = () => {
                 value={docAnswer.resp}
                 readOnly
                 placeholder="Answer will appear here"
-                style={{ width: "100%" }}
+                style={{ width: "100%", height: "calc(100% - 100px)" }} // adjust as necessary
               />
             </Space>
           )}

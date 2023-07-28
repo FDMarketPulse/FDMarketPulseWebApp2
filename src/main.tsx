@@ -22,11 +22,13 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />},
+        element: <Home />,
+      },
       {
         path: "/home",
-        element: <Home />},
-      {path:"/macro",element:<Macro/>},
+        element: <Home />,
+      },
+      { path: "/macro", element: <Macro /> },
       { path: "/news", element: <News /> },
       { path: "/gpt", element: <GptPage /> },
       {

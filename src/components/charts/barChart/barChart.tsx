@@ -1,4 +1,3 @@
-import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { BarChartCleanStyle } from "@/components/charts/barChart/barChartCleanStyle";
@@ -32,17 +31,17 @@ const BarChart = ({
         style: {
           color: "#ebedf9",
         },
-        formatter: function () {
-          return (
-            '<div style="background-color:' +
-            this.color +
-            ';padding: 1rem;border-radius:1.5rem;box-shadow: 0 10px 15px rgba(52,72,187,0.16);transition: all 0.3s">' +
-            "<strong>" +
-            this.y.toFixed(fractionDigit) +
-            " %" +
-            "</strong></div>"
-          );
-        },
+        // formatter: function () {
+        //   return (
+        //     '<div style="background-color:' +
+        //     this.color +
+        //     ';padding: 1rem;border-radius:1.5rem;box-shadow: 0 10px 15px rgba(52,72,187,0.16);transition: all 0.3s">' +
+        //     "<strong>" +
+        //     this.y.toFixed(fractionDigit) +
+        //     " %" +
+        //     "</strong></div>"
+        //   );
+        // },
       },
     };
   };
@@ -54,7 +53,7 @@ const BarChart = ({
         type: "column",
         data: dataInput,
         crisp: true,
-        borderWidth:0,
+        borderWidth: 0,
         borderRadius: 5,
         maxPointWidth: 18,
         zones: [
