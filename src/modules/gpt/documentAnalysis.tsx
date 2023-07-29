@@ -7,6 +7,7 @@ import { ChatAction, ChatSel } from "@/infra/features/chatbot";
 import { useDispatch } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import type { RcFile } from "antd/es/upload/interface";
+import {isFileLoading} from "@/infra/features/chatbot/selectors";
 
 const { Title, Paragraph } = Typography;
 
@@ -16,9 +17,12 @@ const DocAnalysisTab: React.FC = () => {
   const [question, setQuestion] = useState("");
   const docAnswer = useRootSelector(ChatSel.qnaResp);
   const isDocAnswerLoading = useRootSelector(ChatSel.isQnARespLoading);
+  const isFileUpLoading = useRootSelector(ChatSel.isFileLoading)
   const docUrl = useRootSelector(ChatSel.fileUrl);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-
+  console.log(isFileUpLoading)
+  console.log(isDocAnswerLoading)
+  console.log("button disabled: " + isDocAnswerLoading || isFileUpLoading)
   useEffect(() => {
     if (docUrl && question && isButtonClicked) {
       const updatedPayload = {
@@ -27,14 +31,15 @@ const DocAnalysisTab: React.FC = () => {
       };
 
       dispatch(ChatAction.fetchQnA.request(updatedPayload));
+      setIsButtonClicked(false);
     }
   }, [docUrl, question, isButtonClicked, dispatch]);
 
   const handleAnalysis = async () => {
     if (file) {
-      // uploadDocFirebase action is dispatched and the result (which should be a Promise of doc URL) is stored in uploadedDoc
-      await dispatch(ChatAction.uploadDocFirebase.request(file));
       setIsButtonClicked(true);
+      await dispatch(ChatAction.uploadDocFirebase.request(file));
+
     }
   };
 
@@ -45,7 +50,7 @@ const DocAnalysisTab: React.FC = () => {
           <Space direction={"vertical"} style={{ width: "100%" }}>
             <Title level={3}>Document Analyzer</Title>
             <Paragraph type="secondary">
-              Upload your document and ask a question:
+              Upload your document  and ask a question:
             </Paragraph>
             <Upload.Dragger
               beforeUpload={(file) => {
@@ -53,6 +58,7 @@ const DocAnalysisTab: React.FC = () => {
                 return false; // prevent auto upload
               }}
               maxCount={1}
+              disabled={isDocAnswerLoading || isFileUpLoading}
             >
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
@@ -71,7 +77,7 @@ const DocAnalysisTab: React.FC = () => {
             <SubmitButton
               text={"Generate your Answer"}
               onClick={handleAnalysis}
-              disable={isDocAnswerLoading}
+              disable={isDocAnswerLoading || isFileUpLoading}
             />
           </Space>
         </Card>

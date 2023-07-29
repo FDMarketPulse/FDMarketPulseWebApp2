@@ -12,6 +12,9 @@ export const fileUrl = ({ chatbot }: RootState) => chatbot.fileUpload;
 
 export const qnaResp = ({ chatbot }: RootState) => chatbot.qnaResp;
 
+export const isFileLoading = ({ chatbot }: RootState) =>
+    chatbot.status.fileUpload === "REQUEST";
+
 export const isQnARespLoading = ({ chatbot }: RootState) =>
   chatbot.status.qnaResp === "REQUEST";
 
