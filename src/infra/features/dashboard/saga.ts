@@ -10,6 +10,7 @@ import {
   fetchSectorOverview,
 } from "./api";
 import {AxiosResponse} from "axios";
+import {camelizeKeysMod} from "@/utils/camelizeKeys";
 
 export function* fetchMarketSecIndReturns() {
   try {
@@ -25,7 +26,7 @@ export function* fetchSecIndReturns() {
   try {
     const { data }: AxiosResponse<T.SecIndData> = yield call(fetchIndustrySectorOverview);
 
-    yield put(A.fetchSecIndReturns.success(camelizeKeys(data)));
+    yield put(A.fetchSecIndReturns.success(camelizeKeysMod(data)));
   } catch (e) {
     yield put(A.fetchSecIndReturns.failure());
   }
@@ -35,7 +36,7 @@ export function* fetchMarketNewsOverall() {
   try {
     const { data }: AxiosResponse<T.NewsList[]> = yield call(fetchNewsInfo);
 
-    yield put(A.fetchMarketNewsOverall.success(camelizeKeys(data)));
+    yield put(A.fetchMarketNewsOverall.success(camelizeKeysMod(data)));
   } catch (e) {
     yield put(A.fetchMarketNewsOverall.failure());
   }

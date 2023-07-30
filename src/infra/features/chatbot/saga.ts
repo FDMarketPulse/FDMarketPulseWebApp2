@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import * as A from "./actions";
-import { camelizeKeys } from "humps";
+
 import {
   fetchChat,
   fetchNewSentiment,
@@ -8,71 +8,82 @@ import {
   fetchQnAResp,
 } from "@/infra/features/chatbot/api";
 import { objectKeysToSnakeCaseV2 } from "keys-converter";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 
 import { storage } from "@/infra/auth/firebase";
+import { camelizeKeysMod } from "@/utils/camelizeKeys";
 
-export function* fetchChatGptReturn(payload: never) {
+export function* fetchChatGptReturn(action) {
   try {
     const { data } = yield call(
       fetchChat,
-      objectKeysToSnakeCaseV2(payload.payload)
+      objectKeysToSnakeCaseV2(action.payload)
     );
-    yield put(A.fetchChatGptReturn.success(camelizeKeys(data)));
+    yield put(A.fetchChatGptReturn.success(camelizeKeysMod(data)));
   } catch (e) {
     yield put(A.fetchChatGptReturn.failure());
   }
 }
 
-export function* fetchNewsSentiment(payload: never) {
+export function* fetchNewsSentiment(action) {
   try {
     const { data } = yield call(
       fetchNewSentiment,
-      objectKeysToSnakeCaseV2(payload.payload)
+      objectKeysToSnakeCaseV2(action.payload)
     );
-    yield put(A.fetchNewsSentiment.success(camelizeKeys(data)));
+    yield put(A.fetchNewsSentiment.success(camelizeKeysMod(data)));
   } catch (e) {
     yield put(A.fetchNewsSentiment.failure());
   }
 }
 
-export function* fetchTransNewsSentiment(payload: never) {
+export function* fetchTransNewsSentiment(action) {
   try {
     const { data } = yield call(
       fetchNewSentimentTranslate,
-      objectKeysToSnakeCaseV2(payload.payload)
+      objectKeysToSnakeCaseV2(action.payload)
     );
-    yield put(A.fetchTranNewsSentiment.success(camelizeKeys(data)));
+
+
+    yield put(A.fetchTranNewsSentiment.success(camelizeKeysMod(data)));
   } catch (e) {
     yield put(A.fetchTranNewsSentiment.failure());
   }
 }
 
-export function* fetchQnA(payload: never) {
+export function* fetchQnA(action) {
   try {
     console.log("fetchQnA");
-    const { data } = yield call(fetchQnAResp, payload.payload);
-    yield put(A.fetchQnA.success(camelizeKeys(data)));
+    const { data } = yield call(fetchQnAResp, action.payload);
+
+    yield put(A.fetchQnA.success(camelizeKeysMod(data)));
   } catch (e) {
     yield put(A.fetchQnA.failure());
   }
 }
-
 export function* fileUploadToFireBase(action) {
   try {
-    console.log("fileUpload");
-    console.log(action.payload);
-    const fileRef = ref(storage, `/doc_analysis/${action.payload.name}`);
-    console.log(fileRef);
-    yield call(uploadBytes, fileRef, action.payload);
+    const { file, folderName } = action.payload; // extract file and folder name from the action payload
+    const fileRef = ref(storage, `/${folderName}/${file.name}`);
+    yield call(uploadBytes, fileRef, file);
     const fileUrl = yield call(getDownloadURL, fileRef);
-    console.log(fileUrl);
     yield put(A.uploadDocFirebase.success(fileUrl));
+    const listRef = ref(storage, `/${action.payload.folderName}`);
+    const files = yield call(listAll, listRef);
+    const fileUrls = yield all(files.items.map(item => call(getDownloadURL, item)));
+    yield put(
+        A.fetchFileList.success(
+            files.items.map((item, index) => ({
+              name: item.name,
+              url: fileUrls[index],
+            }))
+        )
+    );
   } catch (e) {
-    console.log(e);
     yield put(A.uploadDocFirebase.failure());
   }
 }
+
 export default function* () {
   yield all([
     takeLatest(A.fetchChatGptReturn.request, fetchChatGptReturn),

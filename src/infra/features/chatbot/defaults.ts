@@ -40,4 +40,5 @@ export const defaultState: T.Store = {
     resp: "",
   },
   fileUpload: "",
+  fileList:[]
 };

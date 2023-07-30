@@ -43,4 +43,10 @@ export const uploadDocFirebase = createAsyncAction(
   AT.FIREBASE_UPLOAD_REQUEST,
   AT.FIREBASE_UPLOAD_SUCCESS,
   AT.FIREBASE_UPLOAD_FAILURE
-)<RcFile | string, string, void>();
+)<T.uploadPayload, string, void>();
+
+export const fetchFileList = createAsyncAction(
+  AT.FETCH_FILE_LIST_REQUEST,
+  AT.FETCH_FILE_LIST_SUCCESS,
+  AT.FETCH_FILE_LIST_FAILURE
+)<void, { fileList: RcFile[] }, Error>();

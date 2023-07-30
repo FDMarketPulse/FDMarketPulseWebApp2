@@ -1,3 +1,4 @@
+import type { RcFile } from "antd/es/upload/interface";
 
 export type Store={
     status: {
@@ -15,6 +16,7 @@ export type Store={
     tranNewsSentiment: translateNewsSentiment
     qnaResp:qnaResp
     fileUpload:string
+    fileList: FirebaseFile[]
 }
 
 
@@ -61,3 +63,14 @@ export type qnaReturn = {
 export type qnaResp = {
     resp:string
 }
+
+export type uploadPayload = {
+    file: RcFile,
+    folderName: string
+};
+
+export type FirebaseFile = {
+    name: string;
+    url: string;
+    size: number;
+};
