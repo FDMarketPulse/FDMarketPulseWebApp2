@@ -8,6 +8,7 @@ export type Store={
         tranNewsSentiment:LoadingState;
         qnaResp:LoadingState
         fileUpload:LoadingState
+        docMessage:LoadingState
 
     };
     apiKey:string
@@ -17,6 +18,7 @@ export type Store={
     qnaResp:qnaResp
     fileUpload:string
     fileList: FirebaseFile[]
+    docMessage:DocMessage
 }
 
 
@@ -74,3 +76,14 @@ export type FirebaseFile = {
     url: string;
     size: number;
 };
+
+export type DocMessage = {
+    message:string
+    deleteIndex: boolean
+    docHistory: string[]
+    chatHistory: roleContent[]
+}
+
+export type FolderName ={
+    folder:string
+}

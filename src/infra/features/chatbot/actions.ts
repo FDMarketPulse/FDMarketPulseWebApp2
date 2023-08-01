@@ -14,6 +14,13 @@ export const fetchChatGptReturn = createAsyncAction(
   AT.FETCH_CHAT_GPT_FAILURE
 )<T.chatReturns, T.chatReturns, void>();
 
+
+export const fetchDocGptReturn = createAsyncAction(
+    AT.FETCH_DOC_GPT_REQUEST,
+    AT.FETCH_DOC_GPT_SUCCESS,
+    AT.FETCH_DOC_GPT_FAILURE
+)<T.DocMessage, T.DocMessage, void>();
+
 export const setNewsSentimentToReq = createAction(
   AT.SET_NEWS_SENTIMENT_REQUEST
 )<string>();
@@ -49,4 +56,4 @@ export const fetchFileList = createAsyncAction(
   AT.FETCH_FILE_LIST_REQUEST,
   AT.FETCH_FILE_LIST_SUCCESS,
   AT.FETCH_FILE_LIST_FAILURE
-)<void, { fileList: RcFile[] }, Error>();
+)<T.FolderName, { fileList: RcFile[] }, Error>();

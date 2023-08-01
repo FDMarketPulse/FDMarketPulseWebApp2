@@ -1,6 +1,7 @@
 import { RootState } from "@/infra/rootState";
 
 export const chatGptReturn = ({ chatbot }: RootState) => chatbot.chatReturns;
+export const docGptReturn = ({ chatbot }: RootState) => chatbot.docMessage;
 
 export const newsSentimentGpt = ({ chatbot }: RootState) =>
   chatbot.newsSentiment;
@@ -13,7 +14,7 @@ export const fileList = ({ chatbot }: RootState) => chatbot.fileList;
 export const qnaResp = ({ chatbot }: RootState) => chatbot.qnaResp;
 
 export const isFileLoading = ({ chatbot }: RootState) =>
-    chatbot.status.fileUpload === "REQUEST";
+  chatbot.status.fileUpload === "REQUEST";
 export const isQnARespLoading = ({ chatbot }: RootState) =>
   chatbot.status.qnaResp === "REQUEST";
 
@@ -25,3 +26,6 @@ export const isTranslationNewsSentimentLoading = ({ chatbot }: RootState) =>
 
 export const isChatGptReturnLoading = ({ chatbot }: RootState) =>
   chatbot.status.chatReturns === "REQUEST";
+
+export const isDocGptReturnLoading = ({ chatbot }: RootState) =>
+  chatbot.status.docMessage === "REQUEST";

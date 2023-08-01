@@ -7,10 +7,12 @@ import { ChatAction, ChatSel } from "@/infra/features/chatbot";
 import { useDispatch } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import type { RcFile } from "antd/es/upload/interface";
+import {UserSel} from "@/infra/features/user";
 
 const { Title, Paragraph } = Typography;
 
 const DocAnalysisTab: React.FC = () => {
+
   const dispatch = useDispatch();
   const [file, setFile] = useState<RcFile | null>(null);
   const [question, setQuestion] = useState("");

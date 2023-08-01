@@ -3,6 +3,7 @@ import * as A from "./actions";
 
 import {
   fetchChat,
+  fetchDocChat,
   fetchNewSentiment,
   fetchNewSentimentTranslate,
   fetchQnAResp,
@@ -25,6 +26,18 @@ export function* fetchChatGptReturn(action) {
   }
 }
 
+export function* fetchDocGptReturn(action) {
+  try {
+    const { data } = yield call(
+      fetchDocChat,
+      objectKeysToSnakeCaseV2(action.payload)
+    );
+    yield put(A.fetchDocGptReturn.success(camelizeKeysMod(data)));
+  } catch (e) {
+    yield put(A.fetchDocGptReturn.failure());
+  }
+}
+
 export function* fetchNewsSentiment(action) {
   try {
     const { data } = yield call(
@@ -43,7 +56,6 @@ export function* fetchTransNewsSentiment(action) {
       fetchNewSentimentTranslate,
       objectKeysToSnakeCaseV2(action.payload)
     );
-
 
     yield put(A.fetchTranNewsSentiment.success(camelizeKeysMod(data)));
   } catch (e) {
@@ -70,17 +82,39 @@ export function* fileUploadToFireBase(action) {
     yield put(A.uploadDocFirebase.success(fileUrl));
     const listRef = ref(storage, `/${action.payload.folderName}`);
     const files = yield call(listAll, listRef);
-    const fileUrls = yield all(files.items.map(item => call(getDownloadURL, item)));
+    const fileUrls = yield all(
+      files.items.map((item) => call(getDownloadURL, item))
+    );
     yield put(
-        A.fetchFileList.success(
-            files.items.map((item, index) => ({
-              name: item.name,
-              url: fileUrls[index],
-            }))
-        )
+      A.fetchFileList.success(
+        files.items.map((item, index) => ({
+          name: item.name,
+          url: fileUrls[index],
+        }))
+      )
     );
   } catch (e) {
     yield put(A.uploadDocFirebase.failure());
+  }
+}
+export function* fetchFilesFromFirebase(action) {
+  try {
+    const { folder } = action.payload; // extract folder name from the action payload
+    const listRef = ref(storage, `/${folder}`);
+    const files = yield call(listAll, listRef);
+    const fileUrls = yield all(
+      files.items.map((item) => call(getDownloadURL, item))
+    );
+    yield put(
+      A.fetchFileList.success(
+        files.items.map((item, index) => ({
+          name: item.name,
+          url: fileUrls[index],
+        }))
+      )
+    );
+  } catch (e) {
+    yield put(A.fetchFileList.failure(e));
   }
 }
 
@@ -91,5 +125,7 @@ export default function* () {
     takeLatest(A.fetchTranNewsSentiment.request, fetchTransNewsSentiment),
     takeLatest(A.fetchQnA.request, fetchQnA),
     takeLatest(A.uploadDocFirebase.request, fileUploadToFireBase),
+    takeLatest(A.fetchFileList.request, fetchFilesFromFirebase),
+    takeLatest(A.fetchDocGptReturn.request, fetchDocGptReturn),
   ]);
 }
