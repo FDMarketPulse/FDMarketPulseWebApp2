@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import {Button, Card, Col, Input, Row, Space, Spin, Switch, Typography} from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Input,
+  Row,
+  Space,
+  Spin,
+  Switch,
+  Typography,
+} from "antd";
 import { RobotOutlined, SendOutlined, UserOutlined } from "@ant-design/icons";
 import { useRootSelector } from "@/infra/hooks";
 import { ChatAction, ChatSel } from "@/infra/features/chatbot";
@@ -11,7 +21,7 @@ const ChatBot: React.FC = () => {
   const chatGptData = useRootSelector(ChatSel.docGptReturn);
   const isChatLoading = useRootSelector(ChatSel.isDocGptReturnLoading);
   const [userMessage, setUserMessage] = useState("");
-  const [deleteIndex, setDeleteIndex] = useState(false);
+  const [deleteIndex2, setDeleteIndex] = useState(false);
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSendMessage();
@@ -38,7 +48,7 @@ const ChatBot: React.FC = () => {
     const payload = {
       message: userMessage,
       chatHistory: updatedChatHistory,
-      deleteIndex: false,
+      deleteIndex: deleteIndex2,
       docHistory: chatGptData.docHistory,
     };
     console.log(payload);
@@ -92,18 +102,18 @@ const ChatBot: React.FC = () => {
               isChatLoading ? (
                 <Spin />
               ) : (
-                  <Space>
-                    <Switch
-                        checked={deleteIndex}
-                        onChange={(checked) => setDeleteIndex(checked)}
-                    />
-                    <Button
-                        type="primary"
-                        icon={<SendOutlined />}
-                        onClick={handleSendMessage}
-                        disabled={!userMessage}
-                    />
-                  </Space>
+                <Space>
+                  <Switch
+                    checked={deleteIndex2}
+                    onChange={(checked) => setDeleteIndex(checked)}
+                  />
+                  <Button
+                    type="primary"
+                    icon={<SendOutlined />}
+                    onClick={handleSendMessage}
+                    disabled={!userMessage}
+                  />
+                </Space>
               )
             }
           />

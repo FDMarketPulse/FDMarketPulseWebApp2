@@ -19,10 +19,11 @@ const DocumentChatBot: React.FC = () => {
   const isFileUpLoading = useRootSelector(ChatSel.isFileLoading);
   const docUrl = useRootSelector(ChatSel.fileUrl);
   const fileList = useRootSelector(ChatSel.fileList);
+  console.log(fileList);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const folderName = "doc_chatbot";
   useEffect(() => {
-    dispatch(ChatAction.fetchFileList.request({folder:folderName}));
+    dispatch(ChatAction.fetchFileList.request({ folder: folderName }));
   }, [dispatch]);
 
   useEffect(() => {
@@ -82,7 +83,9 @@ const DocumentChatBot: React.FC = () => {
                   <FileOutlined />{" "}
                   <a href={file.url} target="_blank" rel="noopener noreferrer">
                     {file.name}
-                  </a>
+                  </a>{" "}
+                  {file.size &&
+                    `(${(file.size / (1024 * 1024)).toFixed(2)} MB)`}
                 </List.Item>
               )}
             />

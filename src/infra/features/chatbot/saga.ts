@@ -9,7 +9,13 @@ import {
   fetchQnAResp,
 } from "@/infra/features/chatbot/api";
 import { objectKeysToSnakeCaseV2 } from "keys-converter";
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  getMetadata,
+  listAll,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 
 import { storage } from "@/infra/auth/firebase";
 import { camelizeKeysMod } from "@/utils/camelizeKeys";
@@ -80,7 +86,7 @@ export function* fileUploadToFireBase(action) {
     yield call(uploadBytes, fileRef, file);
     const fileUrl = yield call(getDownloadURL, fileRef);
     yield put(A.uploadDocFirebase.success(fileUrl));
-    const listRef = ref(storage, `/${action.payload.folderName}`);
+    const listRef = ref(storage, `/${folderName}`);
     const files = yield call(listAll, listRef);
     const fileUrls = yield all(
       files.items.map((item) => call(getDownloadURL, item))
@@ -99,20 +105,25 @@ export function* fileUploadToFireBase(action) {
 }
 export function* fetchFilesFromFirebase(action) {
   try {
-    const { folder } = action.payload; // extract folder name from the action payload
+    const { folder } = action.payload;
     const listRef = ref(storage, `/${folder}`);
     const files = yield call(listAll, listRef);
-    const fileUrls = yield all(
-      files.items.map((item) => call(getDownloadURL, item))
-    );
-    yield put(
-      A.fetchFileList.success(
-        files.items.map((item, index) => ({
+    console.log(listRef);
+    console.log(files);
+
+    const fileDetails = yield all(
+      files.items.map(function* (item) {
+        const url = yield call(getDownloadURL, item);
+        const metadata = yield call(getMetadata, item); // get metadata for the item
+        return {
           name: item.name,
-          url: fileUrls[index],
-        }))
-      )
+          url: url,
+          size: metadata.size, // access the size from the metadata
+        };
+      })
     );
+
+    yield put(A.fetchFileList.success(fileDetails));
   } catch (e) {
     yield put(A.fetchFileList.failure(e));
   }
