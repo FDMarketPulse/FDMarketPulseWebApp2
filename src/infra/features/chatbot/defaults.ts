@@ -9,7 +9,8 @@ export const defaultState: T.Store = {
     tranNewsSentiment: "SUCCESS",
     qnaResp: "SUCCESS",
     fileUpload: "SUCCESS",
-    docMessage:"SUCCESS"
+    docMessage: "SUCCESS",
+    stockAnalysis: "SUCCESS",
   },
   apiKey: "",
   chatReturns: {
@@ -18,7 +19,7 @@ export const defaultState: T.Store = {
     chatHistory: [
       {
         role: "assistant",
-        content: "Hi, this is FDMarketPulse GPT 3.5 Assistant.",
+        content: "Hi, this is FDMarketPulse GPT 4 Assistant.",
       },
     ],
   },
@@ -41,8 +42,8 @@ export const defaultState: T.Store = {
     resp: "",
   },
   fileUpload: "",
-  fileList:[],
-  docMessage:{
+  fileList: [],
+  docMessage: {
     message: "",
     deleteIndex: false,
     chatHistory: [
@@ -51,6 +52,13 @@ export const defaultState: T.Store = {
         content: "Hi, this is FDMarketPulse GPT 3.5 Assistant.",
       },
     ],
-    docHistory:[]
+    docHistory: [],
+  },
+  stockAnalysis: {
+    result: {
+      input: "",
+      output: "",
+    },
+    tickers: [],
   },
 };

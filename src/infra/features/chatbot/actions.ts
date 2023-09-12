@@ -14,11 +14,16 @@ export const fetchChatGptReturn = createAsyncAction(
   AT.FETCH_CHAT_GPT_FAILURE
 )<T.chatReturns, T.chatReturns, void>();
 
+export const fetchChatGpt4Return = createAsyncAction(
+  AT.FETCH_CHAT_GPT_4_REQUEST,
+  AT.FETCH_CHAT_GPT_4_SUCCESS,
+  AT.FETCH_CHAT_GPT_4_FAILURE
+)<T.chatReturns, T.chatReturns, void>();
 
 export const fetchDocGptReturn = createAsyncAction(
-    AT.FETCH_DOC_GPT_REQUEST,
-    AT.FETCH_DOC_GPT_SUCCESS,
-    AT.FETCH_DOC_GPT_FAILURE
+  AT.FETCH_DOC_GPT_REQUEST,
+  AT.FETCH_DOC_GPT_SUCCESS,
+  AT.FETCH_DOC_GPT_FAILURE
 )<T.DocMessage, T.DocMessage, void>();
 
 export const setNewsSentimentToReq = createAction(
@@ -57,3 +62,9 @@ export const fetchFileList = createAsyncAction(
   AT.FETCH_FILE_LIST_SUCCESS,
   AT.FETCH_FILE_LIST_FAILURE
 )<T.FolderName, { fileList: RcFile[] }, Error>();
+
+export const fetchStockAnalysis = createAsyncAction(
+  AT.STOCK_ANALYSIS_REQUEST,
+  AT.STOCK_ANALYSIS_SUCCESS,
+  AT.STOCK_ANALYSIS_FAILURE
+)<T.StockAnalysisRequest, T.StockAnalysisResponse, void>();

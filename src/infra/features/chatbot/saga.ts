@@ -3,10 +3,12 @@ import * as A from "./actions";
 
 import {
   fetchChat,
+  fetchChatGpt4,
   fetchDocChat,
   fetchNewSentiment,
   fetchNewSentimentTranslate,
   fetchQnAResp,
+  fetchStockAnalysis,
 } from "@/infra/features/chatbot/api";
 import { objectKeysToSnakeCaseV2 } from "keys-converter";
 import {
@@ -29,6 +31,18 @@ export function* fetchChatGptReturn(action) {
     yield put(A.fetchChatGptReturn.success(camelizeKeysMod(data)));
   } catch (e) {
     yield put(A.fetchChatGptReturn.failure());
+  }
+}
+
+export function* fetchChatGpt4Return(action) {
+  try {
+    const { data } = yield call(
+      fetchChatGpt4,
+      objectKeysToSnakeCaseV2(action.payload)
+    );
+    yield put(A.fetchChatGpt4Return.success(camelizeKeysMod(data)));
+  } catch (e) {
+    yield put(A.fetchChatGpt4Return.failure());
   }
 }
 
@@ -103,6 +117,20 @@ export function* fileUploadToFireBase(action) {
     yield put(A.uploadDocFirebase.failure());
   }
 }
+
+export function* fetchStockAnalysisSaga(action) {
+  try {
+    const { data } = yield call(
+      fetchStockAnalysis,
+      objectKeysToSnakeCaseV2(action.payload)
+    );
+    console.log(data);
+    yield put(A.fetchStockAnalysis.success(camelizeKeysMod(data)));
+  } catch (e) {
+    console.log(e);
+    yield put(A.fetchStockAnalysis.failure(e));
+  }
+}
 export function* fetchFilesFromFirebase(action) {
   try {
     const { folder } = action.payload;
@@ -132,11 +160,13 @@ export function* fetchFilesFromFirebase(action) {
 export default function* () {
   yield all([
     takeLatest(A.fetchChatGptReturn.request, fetchChatGptReturn),
+    takeLatest(A.fetchChatGpt4Return.request, fetchChatGpt4Return),
     takeLatest(A.fetchNewsSentiment.request, fetchNewsSentiment),
     takeLatest(A.fetchTranNewsSentiment.request, fetchTransNewsSentiment),
     takeLatest(A.fetchQnA.request, fetchQnA),
     takeLatest(A.uploadDocFirebase.request, fileUploadToFireBase),
     takeLatest(A.fetchFileList.request, fetchFilesFromFirebase),
     takeLatest(A.fetchDocGptReturn.request, fetchDocGptReturn),
+    takeLatest(A.fetchStockAnalysis.request, fetchStockAnalysisSaga),
   ]);
 }

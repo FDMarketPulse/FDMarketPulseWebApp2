@@ -29,3 +29,8 @@ export const isChatGptReturnLoading = ({ chatbot }: RootState) =>
 
 export const isDocGptReturnLoading = ({ chatbot }: RootState) =>
   chatbot.status.docMessage === "REQUEST";
+
+export const stockAnalysis = ({ chatbot }: RootState) => chatbot.stockAnalysis;
+
+export const isStockAnalysisLoading = ({ chatbot }: RootState) =>
+  chatbot.status.stockAnalysis === "REQUEST";

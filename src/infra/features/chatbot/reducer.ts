@@ -42,6 +42,17 @@ export default (state = defaultState, action: AllActions) =>
         draft.chatReturns = action.payload;
         break;
 
+      case getType(A.fetchChatGpt4Return.request):
+        draft.status.chatReturns = "REQUEST";
+        break;
+      case getType(A.fetchChatGpt4Return.failure):
+        draft.status.chatReturns = "FAILURE";
+        break;
+      case getType(A.fetchChatGpt4Return.success):
+        draft.status.chatReturns = "SUCCESS";
+        draft.chatReturns = action.payload;
+        break;
+
       case getType(A.fetchDocGptReturn.request):
         draft.status.docMessage = "REQUEST";
         break;
@@ -106,6 +117,17 @@ export default (state = defaultState, action: AllActions) =>
       case getType(A.fetchFileList.success):
         // draft.status.fileUpload= "SUCCESS";
         draft.fileList = action.payload;
+        break;
+
+      case getType(A.fetchStockAnalysis.request):
+        draft.status.stockAnalysis = "REQUEST";
+        break;
+      case getType(A.fetchStockAnalysis.failure):
+        draft.status.stockAnalysis = "FAILURE";
+        break;
+      case getType(A.fetchStockAnalysis.success):
+        draft.status.stockAnalysis = "SUCCESS";
+        draft.stockAnalysis = action.payload;
         break;
     }
   });

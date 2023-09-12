@@ -11,13 +11,6 @@ const { Content, Footer, Sider } = Layout;
 const currentYear = new Date().getFullYear();
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(DashAction.fetchSecIndReturns.request());
-    dispatch(DashAction.fetchMarketNewsOverall.request());
-    dispatch(DashAction.fetchMarketMacroOhlc.request());
-  }, [dispatch]);
-
   return (
     <div>
       <ConfigProvider

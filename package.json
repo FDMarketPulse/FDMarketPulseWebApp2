@@ -29,6 +29,7 @@
     "immer": "9.0.15",
     "keys-converter": "^3.0.4",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-countup": "^6.4.2",
     "react-dom": "^18.2.0",

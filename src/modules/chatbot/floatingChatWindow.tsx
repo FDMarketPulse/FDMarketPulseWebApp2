@@ -8,6 +8,7 @@ import {
   FloatButton,
   Input,
   Row,
+  Segmented,
   Spin,
   theme,
 } from "antd";
@@ -22,17 +23,19 @@ import {
 import { useRootSelector } from "@/infra/hooks";
 import { ChatAction, ChatSel } from "@/infra/features/chatbot";
 import { useDispatch } from "react-redux";
+import { UserSel } from "@/infra/features/user";
 
 const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY; // Set your GPT API key as constant here
 
 const FloatingChatWindow: React.FC = () => {
   const dispatch = useDispatch();
+  const [selectedModelIndex, setSelectedModelIndex] = useState("GPT-3.5"); // 0 for GPT-3.5, 1 for GPT-4
+  const userAuth = useRootSelector(UserSel.userAuthState);
   const chatGptData = useRootSelector(ChatSel.chatGptReturn);
   const isChatLoading = useRootSelector(ChatSel.isChatGptReturnLoading);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [userMessage, setUserMessage] = useState("");
-  const chatContainerRef = useRef<HTMLDivElement | null>(null);
-
+  const chatContainerRef = useRef<HTMLDivElement | null>(null); // Replace with logic to detect if the user is logged in
   const openChatWindow = () => {
     setIsChatOpen(true);
   };
@@ -60,9 +63,15 @@ const FloatingChatWindow: React.FC = () => {
       apiKey: GPT_API_KEY,
       chatHistory: updatedChatHistory,
     };
-
-    dispatch(ChatAction.setChatGptReturn(payload));
-    await dispatch(ChatAction.fetchChatGptReturn.request(payload));
+    if (selectedModelIndex === "GPT-4") {
+      dispatch(ChatAction.setChatGptReturn(payload));
+      await dispatch(ChatAction.fetchChatGpt4Return.request(payload));
+    } else {
+      dispatch(ChatAction.setChatGptReturn(payload));
+      await dispatch(ChatAction.fetchChatGptReturn.request(payload));
+    }
+    // dispatch(ChatAction.setChatGptReturn(payload));
+    // await dispatch(ChatAction.fetchChatGptReturn.request(payload));
 
     setUserMessage("");
   };
@@ -134,6 +143,26 @@ const FloatingChatWindow: React.FC = () => {
               bordered={false}
               style={{ height: "500px", overflowY: "auto" }}
             >
+              <ConfigProvider
+                theme={{
+                  algorithm: theme.darkAlgorithm,
+                  components: {
+                    Segmented: {
+                      itemActiveBg: "#00b96b",
+                      algorithm: true,
+                    },
+                  },
+                }}
+              >
+                {userAuth.user && (
+                  <Segmented
+                    block
+                    options={["GPT-3.5", "GPT-4"]}
+                    value={selectedModelIndex}
+                    onChange={(e) => setSelectedModelIndex(e)}
+                  />
+                )}
+              </ConfigProvider>
               <div ref={chatContainerRef} className={styles["chat-container"]}>
                 {renderMessages()}
               </div>

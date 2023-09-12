@@ -5,6 +5,7 @@ import DocAnalysisTab from "@/modules/gpt/documentAnalysis";
 import DocumentChatBot from "@/modules/gpt/documentChatBot";
 import { useRootSelector } from "@/infra/hooks";
 import { UserSel } from "@/infra/features/user";
+import StockAnalysisForm from "@/modules/gpt/stockAnalysis";
 
 const { TabPane } = Tabs;
 
@@ -20,6 +21,11 @@ const GptPage: React.FC = () => {
           <DocAnalysisTab />
         </Card>
       </TabPane>
+      {/*<TabPane tab="Stock Analysis" key="2">*/}
+      {/*  <Card>*/}
+      {/*    <StockAnalysisForm />*/}
+      {/*  </Card>*/}
+      {/*</TabPane>*/}
       {userAuth.user && (
         <TabPane tab="Documents ChatBot" key="4">
           <Card>

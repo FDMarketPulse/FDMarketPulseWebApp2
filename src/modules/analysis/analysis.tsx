@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRootSelector } from "@/infra/hooks";
-import { DashSel } from "@/infra/features/dashboard";
+import { DashAction, DashSel } from "@/infra/features/dashboard";
 import BarChart from "@/components/charts/barChart/barChart";
 import { Col, Row, Segmented } from "antd";
+import { useDispatch } from "react-redux";
 
 const AnalysisDashboard = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(DashAction.fetchSecIndReturns.request());
+  }, [dispatch]);
   const sectorIndustryData = useRootSelector(DashSel.sectorIndustryReturn);
   const [activeCategory, setActiveCategory] = useState("sector");
   const handleCategoryChange = (index) => {
@@ -40,7 +45,7 @@ const AnalysisDashboard = () => {
     );
   };
   return (
-    <div style={{zIndex:-1}}>
+    <div style={{ zIndex: -1 }}>
       <Segmented
         block
         size={"large"}
