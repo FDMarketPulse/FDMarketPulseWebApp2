@@ -17,7 +17,9 @@ import {
   CustomerServiceOutlined,
   MessageOutlined,
   RobotOutlined,
+  RocketOutlined,
   SendOutlined,
+  ThunderboltOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { useRootSelector } from "@/infra/hooks";
@@ -143,7 +145,7 @@ const FloatingChatWindow: React.FC = () => {
             >
               <ConfigProvider
                 theme={{
-                  algorithm: theme.darkAlgorithm,
+                  algorithm: theme.defaultAlgorithm,
                   components: {
                     Segmented: {
                       itemActiveBg: "#00b96b",
@@ -155,7 +157,19 @@ const FloatingChatWindow: React.FC = () => {
                 {userAuth.user && (
                   <Segmented
                     block
-                    options={["GPT-3.5", "GPT-4"]}
+                    // options={["GPT-3.5", "GPT-4"]}
+                    options={[
+                      {
+                        label: "GPT-3.5",
+                        value: "GPT-3.5",
+                        icon: <ThunderboltOutlined />,
+                      },
+                      {
+                        label: "GPT-4",
+                        value: "GPT-4",
+                        icon: <RocketOutlined />,
+                      },
+                    ]}
                     value={selectedModelIndex}
                     onChange={(e) => setSelectedModelIndex(e)}
                   />
