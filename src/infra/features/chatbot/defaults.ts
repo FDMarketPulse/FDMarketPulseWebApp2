@@ -19,7 +19,7 @@ export const defaultState: T.Store = {
     chatHistory: [
       {
         role: "assistant",
-        content: "Hi, this is FDMarketPulse GPT 4 Assistant.",
+        content: "Hi, this is FDMarketPulse GPT Assistant.",
       },
     ],
   },

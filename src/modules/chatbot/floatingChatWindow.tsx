@@ -70,8 +70,6 @@ const FloatingChatWindow: React.FC = () => {
       dispatch(ChatAction.setChatGptReturn(payload));
       await dispatch(ChatAction.fetchChatGptReturn.request(payload));
     }
-    // dispatch(ChatAction.setChatGptReturn(payload));
-    // await dispatch(ChatAction.fetchChatGptReturn.request(payload));
 
     setUserMessage("");
   };
