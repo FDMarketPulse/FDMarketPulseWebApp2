@@ -41,19 +41,19 @@ const SideMenu = () => {
         </Link>
       ),
     },
-    // {
-    //   key: "/macro",
-    //   icon: hoveredIcon === "/macro" ? <SlidersFilled /> : <SlidersOutlined />,
-    //   label: (
-    //     <Link
-    //       to={"/macro"}
-    //       onMouseEnter={() => setHoveredIcon("/macro")}
-    //       onMouseLeave={() => setHoveredIcon(null)}
-    //     >
-    //       Macro
-    //     </Link>
-    //   ),
-    // },
+    {
+      key: "/macro",
+      icon: hoveredIcon === "/macro" ? <SlidersFilled /> : <SlidersOutlined />,
+      label: (
+        <Link
+          to={"/macro"}
+          onMouseEnter={() => setHoveredIcon("/macro")}
+          onMouseLeave={() => setHoveredIcon(null)}
+        >
+          Macro
+        </Link>
+      ),
+    },
     {
       key: "/gpt",
       icon:
