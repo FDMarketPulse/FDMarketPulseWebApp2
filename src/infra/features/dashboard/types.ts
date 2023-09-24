@@ -4,14 +4,14 @@ export type Store = {
     secIndData: LoadingState;
     newsList: LoadingState;
     newsContent: LoadingState;
-    macroData:LoadingState;
+    macroData: LoadingState;
   };
   globalDate: GlobalDate;
   sectorReturn: SecIndReturns[];
   secIndData: SecIndData[];
   newsList: NewsList[];
   newsContent: NewsContent;
-  macroData:OhlcData[]
+  macroData: OhlcData[];
 };
 
 export type LoadingState = "REQUEST" | "SUCCESS" | "FAILURE";
@@ -68,15 +68,15 @@ export type NewsContent = {
   content: string[];
 };
 
-export type OhlcData ={
-  id: number
-  date: number
-  ticker: string
-  adjClose: number
-  close: number
-  high: number
-  low: number
-  open: number
-  volume: number
-
-}
+export type OhlcData = {
+  id: number;
+  date: number;
+  ticker: string;
+  adjClose: number;
+  close: number;
+  high: number;
+  low: number;
+  open: number;
+  volume: number;
+  dailyReturn: number;
+};

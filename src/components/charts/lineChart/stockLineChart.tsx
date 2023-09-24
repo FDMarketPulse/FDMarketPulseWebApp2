@@ -13,7 +13,7 @@ type Props = {
   fractionDigit: number;
 };
 
-const OhlcChart = ({
+const StockLineChart = ({
   titleText,
   subtitleText,
   dataInput,
@@ -53,11 +53,11 @@ const OhlcChart = ({
     series: [
       {
         name: "",
-        type: "candlestick",
-        data: dataInput,
+        type: "line",
+        data: lineData,
         crisp: true,
         color: "#00b96b",
-        upColor: "#B9004E",
+        // upColor: "#B9004E",    // upColor: "#B9004E",
       },
     ],
     ...createOption(),
@@ -75,4 +75,4 @@ const OhlcChart = ({
   );
 };
 
-export default OhlcChart;
+export default StockLineChart;
